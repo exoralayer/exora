@@ -69,6 +69,11 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v10/modules/core/exported"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+
+	contractmanagermoduletypes "github.com/neutron-org/neutron/v5/x/contractmanager/types"
+	feetypes "github.com/neutron-org/neutron/v5/x/feerefunder/types"
+	interchaintxstypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"
+	tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
 )
 
 var (
@@ -83,6 +88,8 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
 		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
+		{Account: feetypes.ModuleName},
+		{Account: tokenfactorytypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 
@@ -125,6 +132,11 @@ var (
 						ibcexported.ModuleName,
 						// chain modules
 						wasmtypes.ModuleName,
+
+						contractmanagermoduletypes.ModuleName,
+						feetypes.ModuleName,
+						interchaintxstypes.ModuleName,
+						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
 					EndBlockers: []string{
@@ -134,6 +146,11 @@ var (
 						group.ModuleName,
 						// chain modules
 						wasmtypes.ModuleName,
+
+						contractmanagermoduletypes.ModuleName,
+						feetypes.ModuleName,
+						interchaintxstypes.ModuleName,
+						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
 					// The following is mostly only needed when ModuleName != StoreKey name.
@@ -170,6 +187,11 @@ var (
 						icatypes.ModuleName,
 						// chain modules
 						wasmtypes.ModuleName,
+
+						contractmanagermoduletypes.ModuleName,
+						feetypes.ModuleName,
+						interchaintxstypes.ModuleName,
+						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
 				}),

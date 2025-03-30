@@ -35,7 +35,6 @@ import (
 	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 )
 
 // registerIBCModules register IBC keepers and non dependency inject modules.
@@ -145,8 +144,6 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 		icamodule.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper),
 		ibctm.NewAppModule(tmLightClientModule),
 		solomachine.NewAppModule(soloLightClientModule),
-
-		wasm.NewAppModule(app.appCodec, &app.WasmKeeper, app.StakingKeeper, app.AuthKeeper, app.BankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
 	); err != nil {
 		return err
 	}
