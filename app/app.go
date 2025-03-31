@@ -61,7 +61,7 @@ import (
 
 	"github.com/gluon-zone/gluon/docs"
 
-	tokenfactorymodulekeeper "github.com/gluon-zone/gluon/x/tokenfactory/keeper"
+	contracttokenmodulekeeper "github.com/gluon-zone/gluon/x/contracttoken/keeper"
 )
 
 const (
@@ -112,7 +112,7 @@ type App struct {
 
 	WasmKeeper wasmkeeper.Keeper
 
-	TokenfactoryKeeper tokenfactorymodulekeeper.Keeper
+	ContractTokenKeeper contracttokenmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -192,7 +192,7 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
-		&app.TokenfactoryKeeper,
+		&app.ContractTokenKeeper,
 	); err != nil {
 		panic(err)
 	}
@@ -205,13 +205,6 @@ func New(
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
 	// <gluon>
-	// Neutron Modules
-	// app.ContractManagerKeeper = *contractmanagermodulekeeper.NewKeeper(app.appCodec, app.GetKey(contractmanagermoduletypes.StoreKey), app.AuthKeeper, app.BankKeeper, govtypes.ModuleName)
-	// app.FeeRefunderKeeper = *feekeeper.NewKeeper(app.appCodec, app.GetKey(feetypes.StoreKey), app.AuthKeeper, app.BankKeeper)
-	// app.InterchainTxsKeeper = *interchaintxskeeper.NewKeeper(app.appCodec, app.GetKey(interchaintxstypes.StoreKey), app.AuthKeeper, app.BankKeeper)
-	// app.TokenFactoryKeeper = tokenfactorykeeper.NewKeeper(app.appCodec, app.GetKey(tokenfactorytypes.StoreKey), app.AuthKeeper, app.BankKeeper)
-	// app.TransferSudoKeeper = transferkeeper.NewKeeper(app.TransferKeeper)
-
 	// Wasm
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	wasmDir := filepath.Join(homePath, "wasm")
@@ -219,14 +212,6 @@ func New(
 	if err != nil {
 		panic(fmt.Sprintf("error while reading wasm config: %s", err))
 	}
-
-	wasmOpts = append(wasmOpts) // wasmbinding.RegisterCustomPlugins(
-	// &app.ContractManagerKeeper,
-	// &app.FeeRefunderKeeper,
-	// &app.InterchainTxsKeeper,
-	// &app.TokenFactoryKeeper,
-	// &app.TransferSudoKeeper,
-	// )
 
 	// The last arguments can contain custom message handlers, and custom query handlers,
 	// if we want to allow any custom callbacks

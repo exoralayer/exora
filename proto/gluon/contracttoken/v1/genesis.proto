@@ -1,0 +1,16 @@
+syntax = "proto3";
+package gluon.contracttoken.v1;
+
+import "gluon/contracttoken/v1/params.proto";
+import "gluon/contracttoken/v1/token.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/gluon-zone/gluon/x/contracttoken/types";
+
+// GenesisState defines the contracttoken module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [(gogoproto.nullable) = false];
+
+  repeated Token tokens = 2 [(gogoproto.nullable) = false];
+}

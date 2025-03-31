@@ -1,0 +1,10 @@
+syntax = "proto3";
+package gluon.contracttoken.v1;
+
+option go_package = "github.com/gluon-zone/gluon/x/contracttoken/types";
+
+// Token
+message Token {
+  string contract_address = 1;
+  bool before_send_hook_enabled = 2;
+}
