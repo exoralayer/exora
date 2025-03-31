@@ -32,7 +32,6 @@ import (
 	authsims "github.com/cosmos/cosmos-sdk/x/auth/simulation"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	authzkeeper "github.com/cosmos/cosmos-sdk/x/authz/keeper"
-	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	consensuskeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
@@ -61,6 +60,7 @@ import (
 
 	"github.com/gluon-zone/gluon/docs"
 
+	custombankkeeper "github.com/gluon-zone/gluon/x/bank/keeper"
 	contracttokenmodulekeeper "github.com/gluon-zone/gluon/x/contracttoken/keeper"
 )
 
@@ -90,8 +90,9 @@ type App struct {
 	// keepers
 	// only keepers required by the app are exposed
 	// the list of all modules is available in the app_config
-	AuthKeeper            authkeeper.AccountKeeper
-	BankKeeper            bankkeeper.Keeper
+	AuthKeeper authkeeper.AccountKeeper
+	// BankKeeper            bankkeeper.Keeper
+	BankKeeper            *custombankkeeper.Keeper
 	StakingKeeper         *stakingkeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 	MintKeeper            mintkeeper.Keeper
@@ -269,6 +270,7 @@ func New(
 	}
 
 	/****  Module Options ****/
+	app.BankKeeper.BeforeSendHooks = append(app.BankKeeper.BeforeSendHooks, app.ContractTokenKeeper.BeforeSendHook)
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
 	overrideModules := map[string]module.AppModuleSimulation{
