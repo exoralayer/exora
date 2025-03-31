@@ -56,24 +56,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/spf13/cast"
-	"gluon/wasmbinding"
-
-	"github.com/neutron-org/neutron/v5/x/contractmanager"
-	contractmanagermodulekeeper "github.com/neutron-org/neutron/v5/x/contractmanager/keeper"
-	// contractmanagermoduletypes "github.com/neutron-org/neutron/v5/x/contractmanager/types"
-	"github.com/neutron-org/neutron/v5/x/feerefunder"
-	feekeeper "github.com/neutron-org/neutron/v5/x/feerefunder/keeper"
-	// feetypes "github.com/neutron-org/neutron/v5/x/feerefunder/types"
-	ibchooks "github.com/neutron-org/neutron/v5/x/ibc-hooks"
-	// ibchookstypes "github.com/neutron-org/neutron/v5/x/ibc-hooks/types"
-	"github.com/neutron-org/neutron/v5/x/interchaintxs"
-	interchaintxskeeper "github.com/neutron-org/neutron/v5/x/interchaintxs/keeper"
-	// interchaintxstypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"
-	"github.com/neutron-org/neutron/v5/x/tokenfactory"
-	tokenfactorykeeper "github.com/neutron-org/neutron/v5/x/tokenfactory/keeper"
-	// tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
-	"github.com/neutron-org/neutron/v5/x/transfer"
-	transferkeeper "github.com/neutron-org/neutron/v5/x/transfer/keeper"
+	// "gluon/wasmbinding"
 
 	"gluon/docs"
 )
@@ -125,12 +108,6 @@ type App struct {
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	WasmKeeper wasmkeeper.Keeper
-
-	ContractManagerKeeper contractmanagermodulekeeper.Keeper
-	FeeRefunderKeeper     feekeeper.Keeper
-	InterchainTxsKeeper   interchaintxskeeper.Keeper
-	TokenFactoryKeeper    tokenfactorykeeper.Keeper
-	TransferSudoKeeper    transferkeeper.KeeperTransferWrapper
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
@@ -230,17 +207,6 @@ func New(
 	// app.TokenFactoryKeeper = tokenfactorykeeper.NewKeeper(app.appCodec, app.GetKey(tokenfactorytypes.StoreKey), app.AuthKeeper, app.BankKeeper)
 	// app.TransferSudoKeeper = transferkeeper.NewKeeper(app.TransferKeeper)
 
-	if err := app.RegisterModules(
-		contractmanager.NewAppModule(app.appCodec, app.ContractManagerKeeper),
-		feerefunder.NewAppModule(app.appCodec, app.FeeRefunderKeeper, app.AuthKeeper, app.BankKeeper),
-		ibchooks.NewAppModule(app.AuthKeeper),
-		interchaintxs.NewAppModule(app.appCodec, app.InterchainTxsKeeper, app.AuthKeeper, app.BankKeeper),
-		tokenfactory.NewAppModule(app.appCodec, app.TokenFactoryKeeper, app.AuthKeeper, app.BankKeeper),
-		transfer.NewAppModule(app.TransferSudoKeeper),
-	); err != nil {
-		panic(err)
-	}
-
 	// Wasm
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	wasmDir := filepath.Join(homePath, "wasm")
@@ -249,13 +215,13 @@ func New(
 		panic(fmt.Sprintf("error while reading wasm config: %s", err))
 	}
 
-	wasmOpts = append(wasmOpts, wasmbinding.RegisterCustomPlugins(
-		&app.ContractManagerKeeper,
-		&app.FeeRefunderKeeper,
-		&app.InterchainTxsKeeper,
-		&app.TokenFactoryKeeper,
-		&app.TransferSudoKeeper,
-	)...)
+	wasmOpts = append(wasmOpts) // wasmbinding.RegisterCustomPlugins(
+	// &app.ContractManagerKeeper,
+	// &app.FeeRefunderKeeper,
+	// &app.InterchainTxsKeeper,
+	// &app.TokenFactoryKeeper,
+	// &app.TransferSudoKeeper,
+	// )
 
 	// The last arguments can contain custom message handlers, and custom query handlers,
 	// if we want to allow any custom callbacks
