@@ -1,11 +1,10 @@
 syntax = "proto3";
 package gluon.tokenfactory.v1;
 
-import "amino/amino.proto";
+import "gluon/tokenfactory/v1/metadata.proto";
+import "gluon/tokenfactory/v1/params.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
-import "github.com/gluon-zone/gluon/tokenfactory/v1/params.proto";
 
 option go_package = "github.com/gluon-zone/gluon/x/tokenfactory/types";
 
@@ -15,6 +14,26 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/gluon/tokenfactory/v1/params";
   }
+
+  // DenomAuthorityMetadata queries the authority metadata of the module.
+  rpc DenomAuthorityMetadata(QueryDenomAuthorityMetadataRequest) returns (QueryDenomAuthorityMetadataResponse) {
+    option (google.api.http).get = "/gluon/tokenfactory/v1/denoms/factory/{creator}/{subdenom}/authority-metadata";
+  }
+
+  // DenomsFromCreator queries the denoms from the creator.
+  rpc DenomsFromCreator(QueryDenomsFromCreatorRequest) returns (QueryDenomsFromCreatorResponse) {
+    option (google.api.http).get = "/gluon/tokenfactory/v1/denoms/from-creator/{creator}";
+  }
+
+  // BeforeSendHookAddress queries the before send hook address of the module.
+  rpc BeforeSendHookAddress(QueryBeforeSendHookAddressRequest) returns (QueryBeforeSendHookAddressResponse) {
+    option (google.api.http).get = "/gluon/tokenfactory/v1/denoms/factory/{creator}/{subdenom}/before-send-hook";
+  }
+
+  // FullDenom queries the full denom of the module.
+  rpc FullDenom(QueryFullDenomRequest) returns (QueryFullDenomResponse) {
+    option (google.api.http).get = "/gluon/tokenfactory/v1/denoms/factory/{creator}/{subdenom}/full-denom";
+  }
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -23,8 +42,59 @@ message QueryParamsRequest {}
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
   // params holds all the parameters of this module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryDenomAuthorityMetadataRequest defines the request structure for the
+// DenomAuthorityMetadata gRPC query.
+message QueryDenomAuthorityMetadataRequest {
+  string creator = 1 [(gogoproto.moretags) = "yaml:\"creator\""];
+  string subdenom = 2 [(gogoproto.moretags) = "yaml:\"subdenom\""];
+}
+
+// QueryDenomAuthorityMetadataResponse defines the response structure for the
+// DenomAuthorityMetadata gRPC query.
+message QueryDenomAuthorityMetadataResponse {
+  DenomAuthorityMetadata authority_metadata = 1 [
+    (gogoproto.moretags) = "yaml:\"authority_metadata\"",
+    (gogoproto.nullable) = false
   ];
+}
+
+// QueryDenomsFromCreatorRequest defines the request structure for the
+// DenomsFromCreator gRPC query.
+message QueryDenomsFromCreatorRequest {
+  string creator = 1 [(gogoproto.moretags) = "yaml:\"creator\""];
+}
+
+// QueryDenomsFromCreatorRequest defines the response structure for the
+// DenomsFromCreator gRPC query.
+message QueryDenomsFromCreatorResponse {
+  repeated string denoms = 1 [(gogoproto.moretags) = "yaml:\"denoms\""];
+}
+
+// QueryBeforeSendHookAddressRequest defines the request structure for the
+// BeforeSendHookAddress gRPC query.
+message QueryBeforeSendHookAddressRequest {
+  string creator = 1 [(gogoproto.moretags) = "yaml:\"creator\""];
+  string subdenom = 2 [(gogoproto.moretags) = "yaml:\"subdenom\""];
+}
+
+// QueryBeforeSendHookAddressResponse defines the response structure for the
+// BeforeSendHookAddress gRPC query.
+message QueryBeforeSendHookAddressResponse {
+  string contract_addr = 1 [(gogoproto.moretags) = "yaml:\"contract_addr\""];
+}
+
+// QueryFullDenomRequest defines the request structure for the
+// FullDenom gRPC query.
+message QueryFullDenomRequest {
+  string creator = 1 [(gogoproto.moretags) = "yaml:\"creator\""];
+  string subdenom = 2 [(gogoproto.moretags) = "yaml:\"subdenom\""];
+}
+
+// QueryFullDenomResponse defines the response structure for the
+// FullDenom gRPC query.
+message QueryFullDenomResponse {
+  string full_denom = 1 [(gogoproto.moretags) = "yaml:\"full_denom\""];
 }

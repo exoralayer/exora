@@ -1,17 +1,17 @@
 syntax = "proto3";
 package gluon.contractmanager.v1;
 
-import "amino/amino.proto";
+import "gluon/contractmanager/v1/failure.proto";
+import "gluon/contractmanager/v1/params.proto";
 import "gogoproto/gogo.proto";
-import "github.com/gluon-zone/gluon/contractmanager/v1/params.proto";
 
 option go_package = "github.com/gluon-zone/gluon/x/contractmanager/types";
 
 // GenesisState defines the contractmanager module's genesis state.
 message GenesisState {
   // params defines all the parameters of the module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 1 [(gogoproto.nullable) = false];
+
+  // List of the contract failures
+  repeated Failure failures = 2 [(gogoproto.nullable) = false];
 }
