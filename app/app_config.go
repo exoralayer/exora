@@ -79,7 +79,8 @@ import (
 	_ "gluon/x/interchaintxs/module"
 	interchaintxsmoduletypes "gluon/x/interchaintxs/types"
 
-	tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
+	_ "gluon/x/tokenfactory/module"
+	tokenfactorymoduletypes "gluon/x/tokenfactory/types"
 )
 
 var (
@@ -95,7 +96,7 @@ var (
 		{Account: icatypes.ModuleName},
 		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
 		{Account: feerefundermoduletypes.ModuleName},
-		{Account: tokenfactorytypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
+		{Account: tokenfactorymoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 
@@ -142,7 +143,7 @@ var (
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
 						interchaintxsmoduletypes.ModuleName,
-						tokenfactorytypes.ModuleName,
+						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
 					EndBlockers: []string{
@@ -156,7 +157,7 @@ var (
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
 						interchaintxsmoduletypes.ModuleName,
-						tokenfactorytypes.ModuleName,
+						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
 					// The following is mostly only needed when ModuleName != StoreKey name.
@@ -197,7 +198,7 @@ var (
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
 						interchaintxsmoduletypes.ModuleName,
-						tokenfactorytypes.ModuleName,
+						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
 				}),
@@ -300,6 +301,10 @@ var (
 			{
 				Name:   interchaintxsmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&interchaintxsmoduletypes.Module{}),
+			},
+			{
+				Name:   tokenfactorymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&tokenfactorymoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
