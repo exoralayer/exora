@@ -56,9 +56,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/spf13/cast"
+
 	// "gluon/wasmbinding"
 
 	"gluon/docs"
+	contractmanagermodulekeeper "gluon/x/contractmanager/keeper"
 )
 
 const (
@@ -109,6 +111,7 @@ type App struct {
 
 	WasmKeeper wasmkeeper.Keeper
 
+	ContractmanagerKeeper contractmanagermodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -188,6 +191,7 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
+		&app.ContractmanagerKeeper,
 	); err != nil {
 		panic(err)
 	}

@@ -70,7 +70,9 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	contractmanagermoduletypes "github.com/neutron-org/neutron/v5/x/contractmanager/types"
+	_ "gluon/x/contractmanager/module"
+	contractmanagermoduletypes "gluon/x/contractmanager/types"
+
 	feetypes "github.com/neutron-org/neutron/v5/x/feerefunder/types"
 	interchaintxstypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"
 	tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
@@ -282,6 +284,10 @@ var (
 			{
 				Name:   paramstypes.ModuleName,
 				Config: appconfig.WrapAny(&paramsmodulev1.Module{}),
+			},
+			{
+				Name:   contractmanagermoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&contractmanagermoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
