@@ -37,5 +37,5 @@ type BankKeeper interface {
 type WasmKeeper interface {
 	HasContractInfo(ctx context.Context, contractAddress sdk.AccAddress) bool
 	GetContractInfo(ctx context.Context, contractAddress sdk.AccAddress) *wasmtypes.ContractInfo
-	Sudo(ctx context.Context, contractAddress sdk.AccAddress, msg []byte) ([]byte, error)
+	Execute(ctx sdk.Context, contractAddress, caller sdk.AccAddress, msg []byte, coins sdk.Coins) ([]byte, error)
 }

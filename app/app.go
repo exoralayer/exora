@@ -269,6 +269,10 @@ func New(
 	}
 
 	/****  Module Options ****/
+	app.BankKeeper.SendKeeper = app.BankKeeper.SendKeeper.SendKeeper.SetHooks(
+		banktypes.NewMultiBankHooks(
+			app.TokenFactoryKeeper.Hooks(),
+		))
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
 	overrideModules := map[string]module.AppModuleSimulation{
