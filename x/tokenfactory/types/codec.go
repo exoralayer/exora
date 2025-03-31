@@ -10,5 +10,13 @@ func RegisterInterfaces(registrar codectypes.InterfaceRegistry) {
 	registrar.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUpdateParams{},
 	)
+	registrar.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateDenom{},
+		&MsgMint{},
+		&MsgBurn{},
+		// &MsgForceTransfer{},
+		&MsgChangeAdmin{},
+		&MsgSetBeforeSendHook{},
+	)
 	msgservice.RegisterMsgServiceDesc(registrar, &_Msg_serviceDesc)
 }

@@ -14,3 +14,11 @@ message DenomAuthorityMetadata {
   // Can be empty for no admin, or a valid osmosis address
   string admin = 1 [(gogoproto.moretags) = "yaml:\"admin\""];
 }
+
+// WhitelistedHook describes a beforeSendHook which is allowed to be added and executed
+// SetBeforeSendHook can only be called on denoms where the denom creator and
+// code_id for the `contract_addr` match a WhitelistedHook
+message WhitelistedHook {
+  uint64 code_id = 1;
+  string denom_creator = 2;
+}

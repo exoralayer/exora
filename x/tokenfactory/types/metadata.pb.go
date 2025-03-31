@@ -71,8 +71,64 @@ func (m *DenomAuthorityMetadata) GetAdmin() string {
 	return ""
 }
 
+// WhitelistedHook describes a beforeSendHook which is allowed to be added and executed
+// SetBeforeSendHook can only be called on denoms where the denom creator and
+// code_id for the `contract_addr` match a WhitelistedHook
+type WhitelistedHook struct {
+	CodeId       uint64 `protobuf:"varint,1,opt,name=code_id,json=codeId,proto3" json:"code_id,omitempty"`
+	DenomCreator string `protobuf:"bytes,2,opt,name=denom_creator,json=denomCreator,proto3" json:"denom_creator,omitempty"`
+}
+
+func (m *WhitelistedHook) Reset()         { *m = WhitelistedHook{} }
+func (m *WhitelistedHook) String() string { return proto.CompactTextString(m) }
+func (*WhitelistedHook) ProtoMessage()    {}
+func (*WhitelistedHook) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84cadf64004dd6f9, []int{1}
+}
+func (m *WhitelistedHook) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *WhitelistedHook) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_WhitelistedHook.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *WhitelistedHook) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WhitelistedHook.Merge(m, src)
+}
+func (m *WhitelistedHook) XXX_Size() int {
+	return m.Size()
+}
+func (m *WhitelistedHook) XXX_DiscardUnknown() {
+	xxx_messageInfo_WhitelistedHook.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WhitelistedHook proto.InternalMessageInfo
+
+func (m *WhitelistedHook) GetCodeId() uint64 {
+	if m != nil {
+		return m.CodeId
+	}
+	return 0
+}
+
+func (m *WhitelistedHook) GetDenomCreator() string {
+	if m != nil {
+		return m.DenomCreator
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*DenomAuthorityMetadata)(nil), "gluon.tokenfactory.v1.DenomAuthorityMetadata")
+	proto.RegisterType((*WhitelistedHook)(nil), "gluon.tokenfactory.v1.WhitelistedHook")
 }
 
 func init() {
@@ -80,7 +136,7 @@ func init() {
 }
 
 var fileDescriptor_84cadf64004dd6f9 = []byte{
-	// 209 bytes of a gzipped FileDescriptorProto
+	// 274 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x49, 0xcf, 0x29, 0xcd,
 	0xcf, 0xd3, 0x2f, 0xc9, 0xcf, 0x4e, 0xcd, 0x4b, 0x4b, 0x4c, 0x2e, 0xc9, 0x2f, 0xaa, 0xd4, 0x2f,
 	0x33, 0xd4, 0xcf, 0x4d, 0x2d, 0x49, 0x4c, 0x49, 0x2c, 0x49, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
@@ -89,12 +145,16 @@ var fileDescriptor_84cadf64004dd6f9 = []byte{
 	0x3a, 0x96, 0x96, 0x64, 0xe4, 0x17, 0x65, 0x96, 0x54, 0xfa, 0x42, 0x0d, 0x13, 0x52, 0xe3, 0x62,
 	0x4d, 0x4c, 0xc9, 0xcd, 0xcc, 0x93, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x74, 0x12, 0xf8, 0x74, 0x4f,
 	0x9e, 0xa7, 0x32, 0x31, 0x37, 0xc7, 0x4a, 0x09, 0x2c, 0xac, 0x14, 0x04, 0x91, 0xb6, 0x62, 0x79,
-	0xb1, 0x40, 0x9e, 0xd1, 0xc9, 0xeb, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c,
-	0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2,
-	0x0c, 0xd2, 0x33, 0x4b, 0x32, 0x4a, 0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0xc1, 0x2e, 0xd3, 0xad,
-	0xca, 0xcf, 0x4b, 0x85, 0x30, 0xf5, 0x2b, 0x50, 0x3d, 0x53, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4,
-	0x06, 0x76, 0x9a, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x7b, 0x25, 0x3a, 0x73, 0xef, 0x00, 0x00,
-	0x00,
+	0xb1, 0x40, 0x9e, 0x51, 0xc9, 0x9f, 0x8b, 0x3f, 0x3c, 0x23, 0xb3, 0x24, 0x35, 0x27, 0xb3, 0xb8,
+	0x24, 0x35, 0xc5, 0x23, 0x3f, 0x3f, 0x5b, 0x48, 0x9c, 0x8b, 0x3d, 0x39, 0x3f, 0x25, 0x35, 0x3e,
+	0x33, 0x05, 0x6c, 0x04, 0x4b, 0x10, 0x1b, 0x88, 0xeb, 0x99, 0x22, 0xa4, 0xcc, 0xc5, 0x9b, 0x02,
+	0xb2, 0x33, 0x3e, 0xb9, 0x28, 0x35, 0xb1, 0x24, 0xbf, 0x48, 0x82, 0x09, 0x64, 0x43, 0x10, 0x0f,
+	0x58, 0xd0, 0x19, 0x22, 0xe6, 0xe4, 0x75, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f,
+	0x1e, 0xc9, 0x31, 0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c,
+	0x51, 0x06, 0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a, 0xc9, 0xf9, 0xb9, 0xfa, 0x60, 0xaf, 0xea,
+	0x56, 0xe5, 0xe7, 0xa5, 0x42, 0x98, 0xfa, 0x15, 0xa8, 0xa1, 0x53, 0x52, 0x59, 0x90, 0x5a, 0x9c,
+	0xc4, 0x06, 0xf6, 0xab, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xfd, 0x76, 0xc7, 0x7a, 0x40, 0x01,
+	0x00, 0x00,
 }
 
 func (this *DenomAuthorityMetadata) Equal(that interface{}) bool {
@@ -151,6 +211,41 @@ func (m *DenomAuthorityMetadata) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
+func (m *WhitelistedHook) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *WhitelistedHook) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *WhitelistedHook) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.DenomCreator) > 0 {
+		i -= len(m.DenomCreator)
+		copy(dAtA[i:], m.DenomCreator)
+		i = encodeVarintMetadata(dAtA, i, uint64(len(m.DenomCreator)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.CodeId != 0 {
+		i = encodeVarintMetadata(dAtA, i, uint64(m.CodeId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintMetadata(dAtA []byte, offset int, v uint64) int {
 	offset -= sovMetadata(v)
 	base := offset
@@ -169,6 +264,22 @@ func (m *DenomAuthorityMetadata) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.Admin)
+	if l > 0 {
+		n += 1 + l + sovMetadata(uint64(l))
+	}
+	return n
+}
+
+func (m *WhitelistedHook) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CodeId != 0 {
+		n += 1 + sovMetadata(uint64(m.CodeId))
+	}
+	l = len(m.DenomCreator)
 	if l > 0 {
 		n += 1 + l + sovMetadata(uint64(l))
 	}
@@ -241,6 +352,107 @@ func (m *DenomAuthorityMetadata) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Admin = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMetadata(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMetadata
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *WhitelistedHook) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMetadata
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: WhitelistedHook: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: WhitelistedHook: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CodeId", wireType)
+			}
+			m.CodeId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMetadata
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CodeId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DenomCreator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMetadata
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMetadata
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMetadata
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DenomCreator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
