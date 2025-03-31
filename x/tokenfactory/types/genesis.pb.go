@@ -5,13 +5,11 @@ package types
 
 import (
 	fmt "fmt"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
-
-	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
-	_ "github.com/cosmos/gogoproto/gogoproto"
-	proto "github.com/cosmos/gogoproto/proto"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +26,8 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the tokenfactory module's genesis state.
 type GenesisState struct {
 	// params defines all the parameters of the module.
-	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	Params        Params         `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	GenesisDenoms []GenesisDenom `protobuf:"bytes,2,rep,name=genesis_denoms,json=genesisDenoms,proto3" json:"genesis_denoms"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -71,31 +70,144 @@ func (m *GenesisState) GetParams() Params {
 	return Params{}
 }
 
-func init() {
-	proto.RegisterType((*GenesisState)(nil), "gluon.tokenfactory.v1.GenesisState")
+func (m *GenesisState) GetGenesisDenoms() []GenesisDenom {
+	if m != nil {
+		return m.GenesisDenoms
+	}
+	return nil
+}
+
+// GenesisDenom defines a tokenfactory denom that is defined within genesis
+// state. The structure contains DenomAuthorityMetadata which defines the
+// denom's admin.
+type GenesisDenom struct {
+	Denom               string                 `protobuf:"bytes,1,opt,name=denom,proto3" json:"denom,omitempty" yaml:"denom"`
+	AuthorityMetadata   DenomAuthorityMetadata `protobuf:"bytes,2,opt,name=authority_metadata,json=authorityMetadata,proto3" json:"authority_metadata" yaml:"authority_metadata"`
+	HookContractAddress string                 `protobuf:"bytes,3,opt,name=hook_contract_address,json=hookContractAddress,proto3" json:"hook_contract_address,omitempty"`
+}
+
+func (m *GenesisDenom) Reset()         { *m = GenesisDenom{} }
+func (m *GenesisDenom) String() string { return proto.CompactTextString(m) }
+func (*GenesisDenom) ProtoMessage()    {}
+func (*GenesisDenom) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3d1917befcfe3547, []int{1}
+}
+func (m *GenesisDenom) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GenesisDenom) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GenesisDenom.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GenesisDenom) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GenesisDenom.Merge(m, src)
+}
+func (m *GenesisDenom) XXX_Size() int {
+	return m.Size()
+}
+func (m *GenesisDenom) XXX_DiscardUnknown() {
+	xxx_messageInfo_GenesisDenom.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GenesisDenom proto.InternalMessageInfo
+
+func (m *GenesisDenom) GetDenom() string {
+	if m != nil {
+		return m.Denom
+	}
+	return ""
+}
+
+func (m *GenesisDenom) GetAuthorityMetadata() DenomAuthorityMetadata {
+	if m != nil {
+		return m.AuthorityMetadata
+	}
+	return DenomAuthorityMetadata{}
+}
+
+func (m *GenesisDenom) GetHookContractAddress() string {
+	if m != nil {
+		return m.HookContractAddress
+	}
+	return ""
 }
 
 func init() {
-	proto.RegisterFile("github.com/gluon-zone/gluon/tokenfactory/v1/genesis.proto", fileDescriptor_3d1917befcfe3547)
+	proto.RegisterType((*GenesisState)(nil), "gluon.tokenfactory.v1.GenesisState")
+	proto.RegisterType((*GenesisDenom)(nil), "gluon.tokenfactory.v1.GenesisDenom")
+}
+
+func init() {
+	proto.RegisterFile("gluon/tokenfactory/v1/genesis.proto", fileDescriptor_3d1917befcfe3547)
 }
 
 var fileDescriptor_3d1917befcfe3547 = []byte{
-	// 199 bytes of a gzipped FileDescriptorProto
+	// 387 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4e, 0xcf, 0x29, 0xcd,
 	0xcf, 0xd3, 0x2f, 0xc9, 0xcf, 0x4e, 0xcd, 0x4b, 0x4b, 0x4c, 0x2e, 0xc9, 0x2f, 0xaa, 0xd4, 0x2f,
 	0x33, 0xd4, 0x4f, 0x4f, 0xcd, 0x4b, 0x2d, 0xce, 0x2c, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17,
-	0x12, 0x05, 0x2b, 0xd2, 0x43, 0x56, 0xa4, 0x57, 0x66, 0x28, 0x25, 0x98, 0x98, 0x9b, 0x99, 0x97,
-	0xaf, 0x0f, 0x26, 0x21, 0x2a, 0xa5, 0x44, 0xd2, 0xf3, 0xd3, 0xf3, 0xc1, 0x4c, 0x7d, 0x10, 0x0b,
-	0x2a, 0xaa, 0x84, 0xdd, 0x92, 0x82, 0xc4, 0xa2, 0xc4, 0x5c, 0xa8, 0x1d, 0x4a, 0x01, 0x5c, 0x3c,
-	0xee, 0x10, 0x4b, 0x83, 0x4b, 0x12, 0x4b, 0x52, 0x85, 0x1c, 0xb8, 0xd8, 0x20, 0xf2, 0x12, 0x8c,
-	0x0a, 0x8c, 0x1a, 0xdc, 0x46, 0xb2, 0x7a, 0x58, 0x1d, 0xa1, 0x17, 0x00, 0x56, 0xe4, 0xc4, 0x79,
-	0xe2, 0x9e, 0x3c, 0xc3, 0x8a, 0xe7, 0x1b, 0xb4, 0x18, 0x83, 0xa0, 0xfa, 0x9c, 0x4c, 0x4e, 0x3c,
-	0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e,
-	0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x0a, 0xe2, 0x9e, 0x0a, 0x54, 0x17, 0x95,
-	0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0x9d, 0x63, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xf2,
-	0x37, 0x2f, 0x3e, 0x19, 0x01, 0x00, 0x00,
+	0x12, 0x05, 0x2b, 0xd2, 0x43, 0x56, 0xa4, 0x57, 0x66, 0x28, 0xa5, 0x82, 0x5d, 0x6f, 0x6e, 0x6a,
+	0x49, 0x62, 0x4a, 0x62, 0x49, 0x22, 0x44, 0xb3, 0x94, 0x12, 0x76, 0x55, 0x05, 0x89, 0x45, 0x89,
+	0xb9, 0x50, 0x0b, 0xa4, 0x44, 0xd2, 0xf3, 0xd3, 0xf3, 0xc1, 0x4c, 0x7d, 0x10, 0x0b, 0x22, 0xaa,
+	0x34, 0x97, 0x91, 0x8b, 0xc7, 0x1d, 0xe2, 0x90, 0xe0, 0x92, 0xc4, 0x92, 0x54, 0x21, 0x6b, 0x2e,
+	0x36, 0x88, 0x36, 0x09, 0x46, 0x05, 0x46, 0x0d, 0x6e, 0x23, 0x59, 0x3d, 0xac, 0x0e, 0xd3, 0x0b,
+	0x00, 0x2b, 0x72, 0x62, 0x39, 0x71, 0x4f, 0x9e, 0x21, 0x08, 0xaa, 0x45, 0x28, 0x80, 0x8b, 0x0f,
+	0xea, 0xab, 0xf8, 0x94, 0xd4, 0xbc, 0xfc, 0xdc, 0x62, 0x09, 0x26, 0x05, 0x66, 0x0d, 0x6e, 0x23,
+	0x65, 0x1c, 0x86, 0x40, 0x6d, 0x76, 0x01, 0xa9, 0x85, 0x1a, 0xc5, 0x9b, 0x8e, 0x24, 0x56, 0xac,
+	0xf4, 0x1d, 0xe1, 0x3e, 0xb0, 0x88, 0x90, 0x1a, 0x17, 0x2b, 0xd8, 0x68, 0xb0, 0xf3, 0x38, 0x9d,
+	0x04, 0x3e, 0xdd, 0x93, 0xe7, 0xa9, 0x4c, 0xcc, 0xcd, 0xb1, 0x52, 0x02, 0x0b, 0x2b, 0x05, 0x41,
+	0xa4, 0x85, 0xea, 0xb9, 0x84, 0x12, 0x4b, 0x4b, 0x32, 0xf2, 0x8b, 0x32, 0x4b, 0x2a, 0xe3, 0x61,
+	0xc1, 0x25, 0xc1, 0x04, 0xf6, 0x93, 0x2e, 0x0e, 0xe7, 0x80, 0x6d, 0x70, 0x84, 0xe9, 0xf2, 0x85,
+	0x6a, 0x72, 0x52, 0x04, 0x39, 0xec, 0xd3, 0x3d, 0x79, 0x49, 0x88, 0x3d, 0x98, 0xc6, 0x2a, 0x05,
+	0x09, 0x26, 0xa2, 0xeb, 0x12, 0xb2, 0xe0, 0x12, 0xcd, 0xc8, 0xcf, 0xcf, 0x8e, 0x4f, 0xce, 0xcf,
+	0x2b, 0x29, 0x4a, 0x4c, 0x2e, 0x89, 0x4f, 0x4c, 0x49, 0x29, 0x4a, 0x2d, 0x2e, 0x96, 0x60, 0x06,
+	0x3b, 0x1c, 0xe4, 0x5b, 0xc6, 0x20, 0x61, 0x90, 0x12, 0x67, 0xa8, 0x0a, 0x47, 0x88, 0x02, 0x2b,
+	0x96, 0x17, 0x0b, 0xe4, 0x19, 0x9d, 0xbc, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1,
+	0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e,
+	0x21, 0xca, 0x20, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57, 0x1f, 0xec, 0x11,
+	0xdd, 0xaa, 0xfc, 0xbc, 0x54, 0x08, 0x53, 0xbf, 0x02, 0x35, 0x15, 0x94, 0x54, 0x16, 0xa4, 0x16,
+	0x27, 0xb1, 0x81, 0x23, 0xdb, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xc5, 0x43, 0x64, 0x46, 0x8a,
+	0x02, 0x00, 0x00,
 }
 
+func (this *GenesisDenom) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*GenesisDenom)
+	if !ok {
+		that2, ok := that.(GenesisDenom)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Denom != that1.Denom {
+		return false
+	}
+	if !this.AuthorityMetadata.Equal(&that1.AuthorityMetadata) {
+		return false
+	}
+	if this.HookContractAddress != that1.HookContractAddress {
+		return false
+	}
+	return true
+}
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -116,6 +228,20 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.GenesisDenoms) > 0 {
+		for iNdEx := len(m.GenesisDenoms) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.GenesisDenoms[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
 	{
 		size, err := m.Params.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
@@ -126,6 +252,53 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	}
 	i--
 	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *GenesisDenom) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GenesisDenom) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GenesisDenom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.HookContractAddress) > 0 {
+		i -= len(m.HookContractAddress)
+		copy(dAtA[i:], m.HookContractAddress)
+		i = encodeVarintGenesis(dAtA, i, uint64(len(m.HookContractAddress)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	{
+		size, err := m.AuthorityMetadata.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintGenesis(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x12
+	if len(m.Denom) > 0 {
+		i -= len(m.Denom)
+		copy(dAtA[i:], m.Denom)
+		i = encodeVarintGenesis(dAtA, i, uint64(len(m.Denom)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -148,6 +321,31 @@ func (m *GenesisState) Size() (n int) {
 	_ = l
 	l = m.Params.Size()
 	n += 1 + l + sovGenesis(uint64(l))
+	if len(m.GenesisDenoms) > 0 {
+		for _, e := range m.GenesisDenoms {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *GenesisDenom) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Denom)
+	if l > 0 {
+		n += 1 + l + sovGenesis(uint64(l))
+	}
+	l = m.AuthorityMetadata.Size()
+	n += 1 + l + sovGenesis(uint64(l))
+	l = len(m.HookContractAddress)
+	if l > 0 {
+		n += 1 + l + sovGenesis(uint64(l))
+	}
 	return n
 }
 
@@ -218,6 +416,187 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GenesisDenoms", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GenesisDenoms = append(m.GenesisDenoms, GenesisDenom{})
+			if err := m.GenesisDenoms[len(m.GenesisDenoms)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGenesis(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GenesisDenom) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGenesis
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GenesisDenom: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GenesisDenom: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Denom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Denom = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AuthorityMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.AuthorityMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HookContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HookContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

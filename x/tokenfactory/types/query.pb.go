@@ -6,12 +6,6 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
-	_ "github.com/cosmos/cosmos-sdk/types/query"
-	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	grpc1 "github.com/cosmos/gogoproto/grpc"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -19,6 +13,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -115,35 +112,462 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
+// QueryDenomAuthorityMetadataRequest defines the request structure for the
+// DenomAuthorityMetadata gRPC query.
+type QueryDenomAuthorityMetadataRequest struct {
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty" yaml:"creator"`
+	Subdenom string `protobuf:"bytes,2,opt,name=subdenom,proto3" json:"subdenom,omitempty" yaml:"subdenom"`
+}
+
+func (m *QueryDenomAuthorityMetadataRequest) Reset()         { *m = QueryDenomAuthorityMetadataRequest{} }
+func (m *QueryDenomAuthorityMetadataRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryDenomAuthorityMetadataRequest) ProtoMessage()    {}
+func (*QueryDenomAuthorityMetadataRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{2}
+}
+func (m *QueryDenomAuthorityMetadataRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDenomAuthorityMetadataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDenomAuthorityMetadataRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDenomAuthorityMetadataRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDenomAuthorityMetadataRequest.Merge(m, src)
+}
+func (m *QueryDenomAuthorityMetadataRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDenomAuthorityMetadataRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDenomAuthorityMetadataRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDenomAuthorityMetadataRequest proto.InternalMessageInfo
+
+func (m *QueryDenomAuthorityMetadataRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *QueryDenomAuthorityMetadataRequest) GetSubdenom() string {
+	if m != nil {
+		return m.Subdenom
+	}
+	return ""
+}
+
+// QueryDenomAuthorityMetadataResponse defines the response structure for the
+// DenomAuthorityMetadata gRPC query.
+type QueryDenomAuthorityMetadataResponse struct {
+	AuthorityMetadata DenomAuthorityMetadata `protobuf:"bytes,1,opt,name=authority_metadata,json=authorityMetadata,proto3" json:"authority_metadata" yaml:"authority_metadata"`
+}
+
+func (m *QueryDenomAuthorityMetadataResponse) Reset()         { *m = QueryDenomAuthorityMetadataResponse{} }
+func (m *QueryDenomAuthorityMetadataResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryDenomAuthorityMetadataResponse) ProtoMessage()    {}
+func (*QueryDenomAuthorityMetadataResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{3}
+}
+func (m *QueryDenomAuthorityMetadataResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDenomAuthorityMetadataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDenomAuthorityMetadataResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDenomAuthorityMetadataResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDenomAuthorityMetadataResponse.Merge(m, src)
+}
+func (m *QueryDenomAuthorityMetadataResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDenomAuthorityMetadataResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDenomAuthorityMetadataResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDenomAuthorityMetadataResponse proto.InternalMessageInfo
+
+func (m *QueryDenomAuthorityMetadataResponse) GetAuthorityMetadata() DenomAuthorityMetadata {
+	if m != nil {
+		return m.AuthorityMetadata
+	}
+	return DenomAuthorityMetadata{}
+}
+
+// QueryDenomsFromCreatorRequest defines the request structure for the
+// DenomsFromCreator gRPC query.
+type QueryDenomsFromCreatorRequest struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty" yaml:"creator"`
+}
+
+func (m *QueryDenomsFromCreatorRequest) Reset()         { *m = QueryDenomsFromCreatorRequest{} }
+func (m *QueryDenomsFromCreatorRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryDenomsFromCreatorRequest) ProtoMessage()    {}
+func (*QueryDenomsFromCreatorRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{4}
+}
+func (m *QueryDenomsFromCreatorRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDenomsFromCreatorRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDenomsFromCreatorRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDenomsFromCreatorRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDenomsFromCreatorRequest.Merge(m, src)
+}
+func (m *QueryDenomsFromCreatorRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDenomsFromCreatorRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDenomsFromCreatorRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDenomsFromCreatorRequest proto.InternalMessageInfo
+
+func (m *QueryDenomsFromCreatorRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+// QueryDenomsFromCreatorRequest defines the response structure for the
+// DenomsFromCreator gRPC query.
+type QueryDenomsFromCreatorResponse struct {
+	Denoms []string `protobuf:"bytes,1,rep,name=denoms,proto3" json:"denoms,omitempty" yaml:"denoms"`
+}
+
+func (m *QueryDenomsFromCreatorResponse) Reset()         { *m = QueryDenomsFromCreatorResponse{} }
+func (m *QueryDenomsFromCreatorResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryDenomsFromCreatorResponse) ProtoMessage()    {}
+func (*QueryDenomsFromCreatorResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{5}
+}
+func (m *QueryDenomsFromCreatorResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDenomsFromCreatorResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDenomsFromCreatorResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDenomsFromCreatorResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDenomsFromCreatorResponse.Merge(m, src)
+}
+func (m *QueryDenomsFromCreatorResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDenomsFromCreatorResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDenomsFromCreatorResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDenomsFromCreatorResponse proto.InternalMessageInfo
+
+func (m *QueryDenomsFromCreatorResponse) GetDenoms() []string {
+	if m != nil {
+		return m.Denoms
+	}
+	return nil
+}
+
+// QueryBeforeSendHookAddressRequest defines the request structure for the
+// BeforeSendHookAddress gRPC query.
+type QueryBeforeSendHookAddressRequest struct {
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty" yaml:"creator"`
+	Subdenom string `protobuf:"bytes,2,opt,name=subdenom,proto3" json:"subdenom,omitempty" yaml:"subdenom"`
+}
+
+func (m *QueryBeforeSendHookAddressRequest) Reset()         { *m = QueryBeforeSendHookAddressRequest{} }
+func (m *QueryBeforeSendHookAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryBeforeSendHookAddressRequest) ProtoMessage()    {}
+func (*QueryBeforeSendHookAddressRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{6}
+}
+func (m *QueryBeforeSendHookAddressRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryBeforeSendHookAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryBeforeSendHookAddressRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryBeforeSendHookAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryBeforeSendHookAddressRequest.Merge(m, src)
+}
+func (m *QueryBeforeSendHookAddressRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryBeforeSendHookAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryBeforeSendHookAddressRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryBeforeSendHookAddressRequest proto.InternalMessageInfo
+
+func (m *QueryBeforeSendHookAddressRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *QueryBeforeSendHookAddressRequest) GetSubdenom() string {
+	if m != nil {
+		return m.Subdenom
+	}
+	return ""
+}
+
+// QueryBeforeSendHookAddressResponse defines the response structure for the
+// BeforeSendHookAddress gRPC query.
+type QueryBeforeSendHookAddressResponse struct {
+	ContractAddr string `protobuf:"bytes,1,opt,name=contract_addr,json=contractAddr,proto3" json:"contract_addr,omitempty" yaml:"contract_addr"`
+}
+
+func (m *QueryBeforeSendHookAddressResponse) Reset()         { *m = QueryBeforeSendHookAddressResponse{} }
+func (m *QueryBeforeSendHookAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryBeforeSendHookAddressResponse) ProtoMessage()    {}
+func (*QueryBeforeSendHookAddressResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{7}
+}
+func (m *QueryBeforeSendHookAddressResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryBeforeSendHookAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryBeforeSendHookAddressResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryBeforeSendHookAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryBeforeSendHookAddressResponse.Merge(m, src)
+}
+func (m *QueryBeforeSendHookAddressResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryBeforeSendHookAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryBeforeSendHookAddressResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryBeforeSendHookAddressResponse proto.InternalMessageInfo
+
+func (m *QueryBeforeSendHookAddressResponse) GetContractAddr() string {
+	if m != nil {
+		return m.ContractAddr
+	}
+	return ""
+}
+
+// QueryFullDenomRequest defines the request structure for the
+// FullDenom gRPC query.
+type QueryFullDenomRequest struct {
+	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty" yaml:"creator"`
+	Subdenom string `protobuf:"bytes,2,opt,name=subdenom,proto3" json:"subdenom,omitempty" yaml:"subdenom"`
+}
+
+func (m *QueryFullDenomRequest) Reset()         { *m = QueryFullDenomRequest{} }
+func (m *QueryFullDenomRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryFullDenomRequest) ProtoMessage()    {}
+func (*QueryFullDenomRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{8}
+}
+func (m *QueryFullDenomRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryFullDenomRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryFullDenomRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryFullDenomRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFullDenomRequest.Merge(m, src)
+}
+func (m *QueryFullDenomRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryFullDenomRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFullDenomRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryFullDenomRequest proto.InternalMessageInfo
+
+func (m *QueryFullDenomRequest) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *QueryFullDenomRequest) GetSubdenom() string {
+	if m != nil {
+		return m.Subdenom
+	}
+	return ""
+}
+
+// QueryFullDenomResponse defines the response structure for the
+// FullDenom gRPC query.
+type QueryFullDenomResponse struct {
+	FullDenom string `protobuf:"bytes,1,opt,name=full_denom,json=fullDenom,proto3" json:"full_denom,omitempty" yaml:"full_denom"`
+}
+
+func (m *QueryFullDenomResponse) Reset()         { *m = QueryFullDenomResponse{} }
+func (m *QueryFullDenomResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryFullDenomResponse) ProtoMessage()    {}
+func (*QueryFullDenomResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd7f269874f1c033, []int{9}
+}
+func (m *QueryFullDenomResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryFullDenomResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryFullDenomResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryFullDenomResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFullDenomResponse.Merge(m, src)
+}
+func (m *QueryFullDenomResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryFullDenomResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFullDenomResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryFullDenomResponse proto.InternalMessageInfo
+
+func (m *QueryFullDenomResponse) GetFullDenom() string {
+	if m != nil {
+		return m.FullDenom
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "gluon.tokenfactory.v1.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "gluon.tokenfactory.v1.QueryParamsResponse")
+	proto.RegisterType((*QueryDenomAuthorityMetadataRequest)(nil), "gluon.tokenfactory.v1.QueryDenomAuthorityMetadataRequest")
+	proto.RegisterType((*QueryDenomAuthorityMetadataResponse)(nil), "gluon.tokenfactory.v1.QueryDenomAuthorityMetadataResponse")
+	proto.RegisterType((*QueryDenomsFromCreatorRequest)(nil), "gluon.tokenfactory.v1.QueryDenomsFromCreatorRequest")
+	proto.RegisterType((*QueryDenomsFromCreatorResponse)(nil), "gluon.tokenfactory.v1.QueryDenomsFromCreatorResponse")
+	proto.RegisterType((*QueryBeforeSendHookAddressRequest)(nil), "gluon.tokenfactory.v1.QueryBeforeSendHookAddressRequest")
+	proto.RegisterType((*QueryBeforeSendHookAddressResponse)(nil), "gluon.tokenfactory.v1.QueryBeforeSendHookAddressResponse")
+	proto.RegisterType((*QueryFullDenomRequest)(nil), "gluon.tokenfactory.v1.QueryFullDenomRequest")
+	proto.RegisterType((*QueryFullDenomResponse)(nil), "gluon.tokenfactory.v1.QueryFullDenomResponse")
 }
 
-func init() { proto.RegisterFile("github.com/gluon-zone/gluon/tokenfactory/v1/query.proto", fileDescriptor_cd7f269874f1c033) }
+func init() { proto.RegisterFile("gluon/tokenfactory/v1/query.proto", fileDescriptor_cd7f269874f1c033) }
 
 var fileDescriptor_cd7f269874f1c033 = []byte{
-	// 312 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4c, 0xcf, 0x29, 0xcd,
-	0xcf, 0xd3, 0x2f, 0xc9, 0xcf, 0x4e, 0xcd, 0x4b, 0x4b, 0x4c, 0x2e, 0xc9, 0x2f, 0xaa, 0xd4, 0x2f,
-	0x33, 0xd4, 0x2f, 0x2c, 0x4d, 0x2d, 0xaa, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x05,
-	0x2b, 0xd1, 0x43, 0x56, 0xa2, 0x57, 0x66, 0x28, 0x25, 0x98, 0x98, 0x9b, 0x99, 0x97, 0xaf, 0x0f,
-	0x26, 0x21, 0x2a, 0xa5, 0x44, 0xd2, 0xf3, 0xd3, 0xf3, 0xc1, 0x4c, 0x7d, 0x10, 0x0b, 0x2a, 0x2a,
-	0x93, 0x9e, 0x9f, 0x9f, 0x9e, 0x93, 0xaa, 0x9f, 0x58, 0x90, 0xa9, 0x9f, 0x98, 0x97, 0x97, 0x5f,
-	0x92, 0x58, 0x92, 0x99, 0x9f, 0x57, 0x0c, 0x95, 0xd5, 0x4a, 0xce, 0x2f, 0xce, 0xcd, 0x2f, 0xd6,
-	0x4f, 0x4a, 0x2c, 0x4e, 0x85, 0x58, 0xab, 0x5f, 0x66, 0x98, 0x94, 0x5a, 0x92, 0x68, 0xa8, 0x5f,
-	0x90, 0x98, 0x9e, 0x99, 0x07, 0x56, 0x0c, 0x55, 0xab, 0x84, 0xdd, 0xb1, 0x05, 0x89, 0x45, 0x89,
-	0xb9, 0x50, 0xf3, 0x94, 0x44, 0xb8, 0x84, 0x02, 0x41, 0xa6, 0x04, 0x80, 0x05, 0x83, 0x52, 0x0b,
-	0x4b, 0x53, 0x8b, 0x4b, 0x94, 0xc2, 0xb9, 0x84, 0x51, 0x44, 0x8b, 0x0b, 0xf2, 0xf3, 0x8a, 0x53,
-	0x85, 0x1c, 0xb8, 0xd8, 0x20, 0x9a, 0x25, 0x18, 0x15, 0x18, 0x35, 0xb8, 0x8d, 0x64, 0xf5, 0xb0,
-	0xfa, 0x55, 0x0f, 0xa2, 0xcd, 0x89, 0xf3, 0xc4, 0x3d, 0x79, 0x86, 0x15, 0xcf, 0x37, 0x68, 0x31,
-	0x06, 0x41, 0xf5, 0x19, 0x4d, 0x60, 0xe4, 0x62, 0x05, 0x9b, 0x2c, 0xd4, 0xc6, 0xc8, 0xc5, 0x06,
-	0x51, 0x27, 0xa4, 0x89, 0xc3, 0x18, 0x4c, 0x87, 0x49, 0x69, 0x11, 0xa3, 0x14, 0xe2, 0x5a, 0x25,
-	0xd5, 0xa6, 0xcb, 0x4f, 0x26, 0x33, 0xc9, 0x0b, 0xc9, 0xea, 0xe3, 0x0b, 0x07, 0x27, 0x93, 0x13,
-	0x8f, 0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86,
-	0x0b, 0x8f, 0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x88, 0x92, 0x82, 0xe8, 0xab, 0x40, 0xd5, 0x59,
-	0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x0e, 0x3e, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0xf2, 0x8b, 0x5f, 0x5b, 0x11, 0x02, 0x00, 0x00,
+	// 741 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0x4d, 0x4f, 0x13, 0x4d,
+	0x1c, 0xef, 0xf2, 0x3c, 0x4f, 0x79, 0x3a, 0x8a, 0xa6, 0x03, 0x25, 0xd8, 0x48, 0x57, 0x46, 0x4d,
+	0xc0, 0xb0, 0x5d, 0x41, 0x34, 0x82, 0x7a, 0xa0, 0x2a, 0x1a, 0x49, 0x7d, 0x59, 0xe2, 0xc5, 0x0b,
+	0x99, 0x76, 0xa7, 0xa5, 0x61, 0x77, 0xa7, 0xec, 0xce, 0x12, 0x2b, 0x21, 0x26, 0x98, 0x78, 0x36,
+	0xf1, 0x3b, 0xf8, 0x15, 0xbc, 0x79, 0xe6, 0x48, 0xe2, 0x85, 0xd3, 0x46, 0xc1, 0xf8, 0x01, 0xfa,
+	0x09, 0xcc, 0xce, 0xcc, 0xf2, 0xba, 0x5d, 0x10, 0x12, 0x6e, 0xdb, 0x99, 0xdf, 0xff, 0xf7, 0x32,
+	0xff, 0xf9, 0x4f, 0x0a, 0x86, 0xea, 0x96, 0x4f, 0x1d, 0x9d, 0xd1, 0x45, 0xe2, 0xd4, 0x70, 0x95,
+	0x51, 0xb7, 0xa5, 0x2f, 0x8f, 0xe9, 0x4b, 0x3e, 0x71, 0x5b, 0xc5, 0xa6, 0x4b, 0x19, 0x85, 0x39,
+	0x0e, 0x29, 0xee, 0x85, 0x14, 0x97, 0xc7, 0xf2, 0xd7, 0xe2, 0x2b, 0x6d, 0xc2, 0xb0, 0x89, 0x19,
+	0x16, 0xc5, 0x79, 0x14, 0x8f, 0x6a, 0x62, 0x17, 0xdb, 0x9e, 0xc4, 0xf4, 0xd5, 0x69, 0x9d, 0xf2,
+	0x4f, 0x3d, 0xfc, 0x92, 0xab, 0x97, 0xeb, 0x94, 0xd6, 0x2d, 0xa2, 0xe3, 0x66, 0x43, 0xc7, 0x8e,
+	0x43, 0x19, 0x66, 0x0d, 0xea, 0xc8, 0x1a, 0xd4, 0x07, 0xe0, 0xab, 0xd0, 0xe3, 0x4b, 0x4e, 0x64,
+	0x90, 0x25, 0x9f, 0x78, 0x0c, 0x19, 0xa0, 0x77, 0xdf, 0xaa, 0xd7, 0xa4, 0x8e, 0x47, 0xe0, 0x3d,
+	0x90, 0x16, 0x82, 0x03, 0xca, 0x15, 0x65, 0xf8, 0xdc, 0xf8, 0x60, 0x31, 0x36, 0x52, 0x51, 0x94,
+	0x95, 0xfe, 0x5d, 0x0f, 0xd4, 0x94, 0x21, 0x4b, 0xd0, 0x07, 0x05, 0x20, 0x4e, 0xfa, 0x88, 0x38,
+	0xd4, 0x9e, 0xf6, 0xd9, 0x02, 0x75, 0x1b, 0xac, 0x55, 0x96, 0x39, 0xa5, 0x34, 0x1c, 0x05, 0xdd,
+	0x55, 0x97, 0x60, 0x46, 0x5d, 0x2e, 0x92, 0x29, 0xc1, 0x76, 0xa0, 0x5e, 0x68, 0x61, 0xdb, 0x9a,
+	0x42, 0x72, 0x03, 0x19, 0x11, 0x04, 0xea, 0xe0, 0x7f, 0xcf, 0xaf, 0x98, 0x21, 0xe3, 0x40, 0x17,
+	0x87, 0xf7, 0xb6, 0x03, 0xf5, 0xa2, 0x80, 0x47, 0x3b, 0xc8, 0xd8, 0x01, 0xa1, 0x2f, 0x0a, 0xb8,
+	0x9a, 0xe8, 0x42, 0x46, 0x7d, 0x0f, 0x20, 0x8e, 0x36, 0xe7, 0xa3, 0x5e, 0xc8, 0xd8, 0x5a, 0x87,
+	0xd8, 0xf1, 0x94, 0xa5, 0xa1, 0xf0, 0x18, 0xda, 0x81, 0x7a, 0x49, 0xb8, 0x3a, 0x4c, 0x8b, 0x8c,
+	0x2c, 0x3e, 0x58, 0x85, 0xca, 0x60, 0x70, 0xd7, 0xa7, 0x37, 0xe3, 0x52, 0xfb, 0xa1, 0xc8, 0x7c,
+	0xa2, 0x83, 0x42, 0xb3, 0xa0, 0xd0, 0x89, 0x4e, 0x26, 0x1e, 0x01, 0x69, 0x7e, 0x44, 0x61, 0x73,
+	0xff, 0x19, 0xce, 0x94, 0xb2, 0xed, 0x40, 0xed, 0x11, 0x74, 0x62, 0x1d, 0x19, 0x12, 0x80, 0xd6,
+	0x14, 0x30, 0xc4, 0xd9, 0x4a, 0xa4, 0x46, 0x5d, 0x32, 0x47, 0x1c, 0xf3, 0x29, 0xa5, 0x8b, 0xd3,
+	0xa6, 0xe9, 0x12, 0xcf, 0x3b, 0xa3, 0x4e, 0x56, 0xe5, 0x75, 0xea, 0xe0, 0x41, 0xa6, 0x7a, 0x00,
+	0x7a, 0xaa, 0xd4, 0x61, 0x2e, 0xae, 0xb2, 0x79, 0x6c, 0x9a, 0x91, 0x95, 0x81, 0x76, 0xa0, 0xf6,
+	0x49, 0x2b, 0x7b, 0xb7, 0x91, 0x71, 0x3e, 0xfa, 0x1d, 0x32, 0xa1, 0x65, 0x90, 0xe3, 0x22, 0x33,
+	0xbe, 0x65, 0xf1, 0xa3, 0x3b, 0xa3, 0x70, 0xcf, 0x41, 0xff, 0x41, 0x5d, 0x19, 0x68, 0x02, 0x80,
+	0x9a, 0x6f, 0x59, 0xf3, 0x82, 0x4c, 0x68, 0xe7, 0xda, 0x81, 0x9a, 0x15, 0x64, 0xbb, 0x7b, 0xc8,
+	0xc8, 0xd4, 0xa2, 0xea, 0xf1, 0xcd, 0x6e, 0xf0, 0x1f, 0x27, 0x84, 0x1f, 0x15, 0x90, 0x16, 0xf3,
+	0x09, 0x47, 0x3a, 0xdc, 0xe3, 0xc3, 0x0f, 0x42, 0xfe, 0xc6, 0x71, 0xa0, 0xc2, 0x21, 0xba, 0xbe,
+	0xf6, 0xfd, 0xd7, 0xe7, 0x2e, 0x15, 0x0e, 0xea, 0x49, 0x6f, 0x16, 0xfc, 0xad, 0x80, 0xfe, 0xf8,
+	0x89, 0x81, 0x93, 0x49, 0x6a, 0x89, 0xcf, 0x47, 0x7e, 0xea, 0x24, 0xa5, 0xd2, 0xf8, 0x6b, 0x6e,
+	0xfc, 0x05, 0x2c, 0x77, 0x30, 0x2e, 0x6e, 0xbf, 0x1e, 0xad, 0xac, 0xc8, 0xee, 0xae, 0xea, 0x2b,
+	0x51, 0xdf, 0x56, 0xf5, 0x9d, 0x41, 0xd6, 0xa2, 0xe9, 0x86, 0xdf, 0x14, 0x90, 0x3d, 0x34, 0x76,
+	0x70, 0xe2, 0x48, 0xa3, 0x31, 0x43, 0x9f, 0xbf, 0xfd, 0x97, 0x55, 0x32, 0xd9, 0x7d, 0x9e, 0xec,
+	0x0e, 0x9c, 0x38, 0x22, 0x99, 0x4b, 0x6d, 0x4d, 0xa6, 0xda, 0x8d, 0x07, 0x7f, 0x2a, 0x20, 0x17,
+	0x3b, 0x65, 0xf0, 0x6e, 0x92, 0x9d, 0xa4, 0xc7, 0x21, 0x3f, 0x79, 0x82, 0x4a, 0x19, 0x66, 0x8e,
+	0x87, 0x29, 0xc3, 0xd9, 0x53, 0xb4, 0xa9, 0xc2, 0x15, 0x34, 0x8f, 0x38, 0xa6, 0xb6, 0x40, 0xe9,
+	0x22, 0xfc, 0xaa, 0x80, 0xcc, 0xce, 0xb0, 0xc1, 0xd1, 0x24, 0x77, 0x07, 0xdf, 0x82, 0xbc, 0x76,
+	0x4c, 0xb4, 0xf4, 0x5f, 0xe6, 0xfe, 0x9f, 0xc0, 0xc7, 0xa7, 0xf0, 0x1f, 0x4e, 0xb6, 0xc6, 0xbf,
+	0x4b, 0xcf, 0xd6, 0xb7, 0x0a, 0xca, 0xc6, 0x56, 0x41, 0xf9, 0xb1, 0x55, 0x50, 0x3e, 0x6d, 0x17,
+	0x52, 0x1b, 0xdb, 0x85, 0xd4, 0xe6, 0x76, 0x21, 0xf5, 0xe6, 0x66, 0xbd, 0xc1, 0x16, 0xfc, 0x4a,
+	0xb1, 0x4a, 0x6d, 0x21, 0xa5, 0xbd, 0xa3, 0x0e, 0x91, 0xaa, 0x6f, 0xf7, 0xeb, 0xb2, 0x56, 0x93,
+	0x78, 0x95, 0x34, 0xff, 0x53, 0x70, 0xeb, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x20, 0x3e, 0xaf,
+	0x1b, 0xce, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -160,6 +584,14 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// DenomAuthorityMetadata queries the authority metadata of the module.
+	DenomAuthorityMetadata(ctx context.Context, in *QueryDenomAuthorityMetadataRequest, opts ...grpc.CallOption) (*QueryDenomAuthorityMetadataResponse, error)
+	// DenomsFromCreator queries the denoms from the creator.
+	DenomsFromCreator(ctx context.Context, in *QueryDenomsFromCreatorRequest, opts ...grpc.CallOption) (*QueryDenomsFromCreatorResponse, error)
+	// BeforeSendHookAddress queries the before send hook address of the module.
+	BeforeSendHookAddress(ctx context.Context, in *QueryBeforeSendHookAddressRequest, opts ...grpc.CallOption) (*QueryBeforeSendHookAddressResponse, error)
+	// FullDenom queries the full denom of the module.
+	FullDenom(ctx context.Context, in *QueryFullDenomRequest, opts ...grpc.CallOption) (*QueryFullDenomResponse, error)
 }
 
 type queryClient struct {
@@ -179,10 +611,54 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) DenomAuthorityMetadata(ctx context.Context, in *QueryDenomAuthorityMetadataRequest, opts ...grpc.CallOption) (*QueryDenomAuthorityMetadataResponse, error) {
+	out := new(QueryDenomAuthorityMetadataResponse)
+	err := c.cc.Invoke(ctx, "/gluon.tokenfactory.v1.Query/DenomAuthorityMetadata", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DenomsFromCreator(ctx context.Context, in *QueryDenomsFromCreatorRequest, opts ...grpc.CallOption) (*QueryDenomsFromCreatorResponse, error) {
+	out := new(QueryDenomsFromCreatorResponse)
+	err := c.cc.Invoke(ctx, "/gluon.tokenfactory.v1.Query/DenomsFromCreator", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) BeforeSendHookAddress(ctx context.Context, in *QueryBeforeSendHookAddressRequest, opts ...grpc.CallOption) (*QueryBeforeSendHookAddressResponse, error) {
+	out := new(QueryBeforeSendHookAddressResponse)
+	err := c.cc.Invoke(ctx, "/gluon.tokenfactory.v1.Query/BeforeSendHookAddress", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) FullDenom(ctx context.Context, in *QueryFullDenomRequest, opts ...grpc.CallOption) (*QueryFullDenomResponse, error) {
+	out := new(QueryFullDenomResponse)
+	err := c.cc.Invoke(ctx, "/gluon.tokenfactory.v1.Query/FullDenom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// DenomAuthorityMetadata queries the authority metadata of the module.
+	DenomAuthorityMetadata(context.Context, *QueryDenomAuthorityMetadataRequest) (*QueryDenomAuthorityMetadataResponse, error)
+	// DenomsFromCreator queries the denoms from the creator.
+	DenomsFromCreator(context.Context, *QueryDenomsFromCreatorRequest) (*QueryDenomsFromCreatorResponse, error)
+	// BeforeSendHookAddress queries the before send hook address of the module.
+	BeforeSendHookAddress(context.Context, *QueryBeforeSendHookAddressRequest) (*QueryBeforeSendHookAddressResponse, error)
+	// FullDenom queries the full denom of the module.
+	FullDenom(context.Context, *QueryFullDenomRequest) (*QueryFullDenomResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -191,6 +667,18 @@ type UnimplementedQueryServer struct {
 
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (*UnimplementedQueryServer) DenomAuthorityMetadata(ctx context.Context, req *QueryDenomAuthorityMetadataRequest) (*QueryDenomAuthorityMetadataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DenomAuthorityMetadata not implemented")
+}
+func (*UnimplementedQueryServer) DenomsFromCreator(ctx context.Context, req *QueryDenomsFromCreatorRequest) (*QueryDenomsFromCreatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DenomsFromCreator not implemented")
+}
+func (*UnimplementedQueryServer) BeforeSendHookAddress(ctx context.Context, req *QueryBeforeSendHookAddressRequest) (*QueryBeforeSendHookAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BeforeSendHookAddress not implemented")
+}
+func (*UnimplementedQueryServer) FullDenom(ctx context.Context, req *QueryFullDenomRequest) (*QueryFullDenomResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FullDenom not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -215,6 +703,78 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_DenomAuthorityMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDenomAuthorityMetadataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DenomAuthorityMetadata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gluon.tokenfactory.v1.Query/DenomAuthorityMetadata",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DenomAuthorityMetadata(ctx, req.(*QueryDenomAuthorityMetadataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DenomsFromCreator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDenomsFromCreatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DenomsFromCreator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gluon.tokenfactory.v1.Query/DenomsFromCreator",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DenomsFromCreator(ctx, req.(*QueryDenomsFromCreatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_BeforeSendHookAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryBeforeSendHookAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).BeforeSendHookAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gluon.tokenfactory.v1.Query/BeforeSendHookAddress",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).BeforeSendHookAddress(ctx, req.(*QueryBeforeSendHookAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_FullDenom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryFullDenomRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).FullDenom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gluon.tokenfactory.v1.Query/FullDenom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).FullDenom(ctx, req.(*QueryFullDenomRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var Query_serviceDesc = _Query_serviceDesc
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "gluon.tokenfactory.v1.Query",
@@ -224,9 +784,25 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
 		},
+		{
+			MethodName: "DenomAuthorityMetadata",
+			Handler:    _Query_DenomAuthorityMetadata_Handler,
+		},
+		{
+			MethodName: "DenomsFromCreator",
+			Handler:    _Query_DenomsFromCreator_Handler,
+		},
+		{
+			MethodName: "BeforeSendHookAddress",
+			Handler:    _Query_BeforeSendHookAddress_Handler,
+		},
+		{
+			MethodName: "FullDenom",
+			Handler:    _Query_FullDenom_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "github.com/gluon-zone/gluon/tokenfactory/v1/query.proto",
+	Metadata: "gluon/tokenfactory/v1/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {
@@ -285,6 +861,272 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryDenomAuthorityMetadataRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDenomAuthorityMetadataRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDenomAuthorityMetadataRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Subdenom) > 0 {
+		i -= len(m.Subdenom)
+		copy(dAtA[i:], m.Subdenom)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Subdenom)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryDenomAuthorityMetadataResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDenomAuthorityMetadataResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDenomAuthorityMetadataResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.AuthorityMetadata.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryDenomsFromCreatorRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDenomsFromCreatorRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDenomsFromCreatorRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryDenomsFromCreatorResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDenomsFromCreatorResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDenomsFromCreatorResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Denoms) > 0 {
+		for iNdEx := len(m.Denoms) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Denoms[iNdEx])
+			copy(dAtA[i:], m.Denoms[iNdEx])
+			i = encodeVarintQuery(dAtA, i, uint64(len(m.Denoms[iNdEx])))
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryBeforeSendHookAddressRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryBeforeSendHookAddressRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryBeforeSendHookAddressRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Subdenom) > 0 {
+		i -= len(m.Subdenom)
+		copy(dAtA[i:], m.Subdenom)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Subdenom)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryBeforeSendHookAddressResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryBeforeSendHookAddressResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryBeforeSendHookAddressResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractAddr) > 0 {
+		i -= len(m.ContractAddr)
+		copy(dAtA[i:], m.ContractAddr)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ContractAddr)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryFullDenomRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryFullDenomRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryFullDenomRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Subdenom) > 0 {
+		i -= len(m.Subdenom)
+		copy(dAtA[i:], m.Subdenom)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Subdenom)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryFullDenomResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryFullDenomResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryFullDenomResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.FullDenom) > 0 {
+		i -= len(m.FullDenom)
+		copy(dAtA[i:], m.FullDenom)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.FullDenom)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -313,6 +1155,122 @@ func (m *QueryParamsResponse) Size() (n int) {
 	_ = l
 	l = m.Params.Size()
 	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryDenomAuthorityMetadataRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Subdenom)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryDenomAuthorityMetadataResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.AuthorityMetadata.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryDenomsFromCreatorRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryDenomsFromCreatorResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Denoms) > 0 {
+		for _, s := range m.Denoms {
+			l = len(s)
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *QueryBeforeSendHookAddressRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Subdenom)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryBeforeSendHookAddressResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ContractAddr)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryFullDenomRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Subdenom)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryFullDenomResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.FullDenom)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
 	return n
 }
 
@@ -433,6 +1391,759 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDenomAuthorityMetadataRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDenomAuthorityMetadataRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDenomAuthorityMetadataRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subdenom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Subdenom = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDenomAuthorityMetadataResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDenomAuthorityMetadataResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDenomAuthorityMetadataResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AuthorityMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.AuthorityMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDenomsFromCreatorRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDenomsFromCreatorRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDenomsFromCreatorRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDenomsFromCreatorResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDenomsFromCreatorResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDenomsFromCreatorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Denoms", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Denoms = append(m.Denoms, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryBeforeSendHookAddressRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryBeforeSendHookAddressRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryBeforeSendHookAddressRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subdenom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Subdenom = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryBeforeSendHookAddressResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryBeforeSendHookAddressResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryBeforeSendHookAddressResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddr", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddr = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryFullDenomRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryFullDenomRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryFullDenomRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subdenom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Subdenom = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryFullDenomResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryFullDenomResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryFullDenomResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FullDenom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FullDenom = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

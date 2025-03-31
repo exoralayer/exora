@@ -34,12 +34,7 @@ import (
 	transferv2 "github.com/cosmos/ibc-go/v10/modules/apps/transfer/v2"
 	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 
-	interchaintxsmodule "github.com/gluon-zone/gluon/x/interchaintxs/module"
-
 	"github.com/CosmWasm/wasmd/x/wasm"
-
-	// registerIBCModules register IBC keepers and non dependency inject modules.
-	interchaintxsmoduletypes "github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
@@ -127,8 +122,6 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 		AddRoute(icacontrollertypes.SubModuleName, icaControllerStack).
 		AddRoute(icahosttypes.SubModuleName, icaHostStack)
 
-	interchaintxsIBCModule := interchaintxsmodule.NewIBCModule(app.appCodec, app.InterchaintxsKeeper)
-	ibcRouter.AddRoute(interchaintxsmoduletypes.ModuleName, interchaintxsIBCModule)
 	// this line is used by starport scaffolding # ibc/app/module
 
 	app.IBCKeeper.SetRouter(ibcRouter)

@@ -60,9 +60,7 @@ import (
 	// "github.com/gluon-zone/gluon/wasmbinding"
 
 	"github.com/gluon-zone/gluon/docs"
-	contractmanagermodulekeeper "github.com/gluon-zone/gluon/x/contractmanager/keeper"
-	feerefundermodulekeeper "github.com/gluon-zone/gluon/x/feerefunder/keeper"
-	interchaintxsmodulekeeper "github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+
 	tokenfactorymodulekeeper "github.com/gluon-zone/gluon/x/tokenfactory/keeper"
 )
 
@@ -114,10 +112,7 @@ type App struct {
 
 	WasmKeeper wasmkeeper.Keeper
 
-	ContractmanagerKeeper contractmanagermodulekeeper.Keeper
-	FeerefunderKeeper     feerefundermodulekeeper.Keeper
-	InterchaintxsKeeper   interchaintxsmodulekeeper.Keeper
-	TokenfactoryKeeper    tokenfactorymodulekeeper.Keeper
+	TokenfactoryKeeper tokenfactorymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -197,9 +192,6 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
-		&app.ContractmanagerKeeper,
-		&app.FeerefunderKeeper,
-		&app.InterchaintxsKeeper,
 		&app.TokenfactoryKeeper,
 	); err != nil {
 		panic(err)

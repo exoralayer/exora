@@ -70,15 +70,6 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	_ "github.com/gluon-zone/gluon/x/contractmanager/module"
-	contractmanagermoduletypes "github.com/gluon-zone/gluon/x/contractmanager/types"
-
-	_ "github.com/gluon-zone/gluon/x/feerefunder/module"
-	feerefundermoduletypes "github.com/gluon-zone/gluon/x/feerefunder/types"
-
-	_ "github.com/gluon-zone/gluon/x/interchaintxs/module"
-	interchaintxsmoduletypes "github.com/gluon-zone/gluon/x/interchaintxs/types"
-
 	_ "github.com/gluon-zone/gluon/x/tokenfactory/module"
 	tokenfactorymoduletypes "github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
@@ -95,7 +86,6 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
 		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
-		{Account: feerefundermoduletypes.ModuleName},
 		{Account: tokenfactorymoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
@@ -140,9 +130,6 @@ var (
 						// chain modules
 						wasmtypes.ModuleName,
 
-						contractmanagermoduletypes.ModuleName,
-						feerefundermoduletypes.ModuleName,
-						interchaintxsmoduletypes.ModuleName,
 						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
@@ -154,9 +141,6 @@ var (
 						// chain modules
 						wasmtypes.ModuleName,
 
-						contractmanagermoduletypes.ModuleName,
-						feerefundermoduletypes.ModuleName,
-						interchaintxsmoduletypes.ModuleName,
 						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
@@ -195,9 +179,6 @@ var (
 						// chain modules
 						wasmtypes.ModuleName,
 
-						contractmanagermoduletypes.ModuleName,
-						feerefundermoduletypes.ModuleName,
-						interchaintxsmoduletypes.ModuleName,
 						tokenfactorymoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
@@ -289,18 +270,6 @@ var (
 			{
 				Name:   paramstypes.ModuleName,
 				Config: appconfig.WrapAny(&paramsmodulev1.Module{}),
-			},
-			{
-				Name:   contractmanagermoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&contractmanagermoduletypes.Module{}),
-			},
-			{
-				Name:   feerefundermoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&feerefundermoduletypes.Module{}),
-			},
-			{
-				Name:   interchaintxsmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&interchaintxsmoduletypes.Module{}),
 			},
 			{
 				Name:   tokenfactorymoduletypes.ModuleName,
