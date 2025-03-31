@@ -5,9 +5,9 @@ import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "gluon/feerefunder/v1/params.proto";
+import "github.com/gluon-zone/gluon/feerefunder/v1/params.proto";
 
-option go_package = "gluon/x/feerefunder/types";
+option go_package = "github.com/gluon-zone/gluon/x/feerefunder/types";
 
 // Query defines the gRPC querier service.
 service Query {

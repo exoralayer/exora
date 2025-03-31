@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 // GenerateGenesisState creates a randomized GenState of the module.

@@ -13,9 +13,9 @@ import (
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"gluon/x/feerefunder/keeper"
-	module "gluon/x/feerefunder/module"
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/x/feerefunder/keeper"
+	module "github.com/gluon-zone/gluon/x/feerefunder/module"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 )
 
 type fixture struct {

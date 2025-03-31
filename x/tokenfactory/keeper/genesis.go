@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

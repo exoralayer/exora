@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"gluon/x/contractmanager/keeper"
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/keeper"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 func TestMsgUpdateParams(t *testing.T) {

@@ -19,9 +19,9 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 	ibctypes "github.com/cosmos/ibc-go/v10/modules/core/types"
 
-	"gluon/x/interchaintxs/keeper"
-	module "gluon/x/interchaintxs/module"
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+	module "github.com/gluon-zone/gluon/x/interchaintxs/module"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 type fixture struct {

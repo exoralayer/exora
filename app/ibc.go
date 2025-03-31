@@ -34,12 +34,12 @@ import (
 	transferv2 "github.com/cosmos/ibc-go/v10/modules/apps/transfer/v2"
 	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 
-	interchaintxsmodule "gluon/x/interchaintxs/module"
+	interchaintxsmodule "github.com/gluon-zone/gluon/x/interchaintxs/module"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 
 	// registerIBCModules register IBC keepers and non dependency inject modules.
-	interchaintxsmoduletypes "gluon/x/interchaintxs/types"
+	interchaintxsmoduletypes "github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {

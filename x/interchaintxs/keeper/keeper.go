@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 type Keeper struct {

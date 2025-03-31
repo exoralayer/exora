@@ -3,7 +3,7 @@ package contractmanager
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

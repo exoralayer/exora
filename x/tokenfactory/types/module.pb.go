@@ -75,7 +75,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/tokenfactory/module/v1/module.proto", fileDescriptor_ff11b69cce054369)
+	proto.RegisterFile("github.com/gluon-zone/gluon/tokenfactory/module/v1/module.proto", fileDescriptor_ff11b69cce054369)
 }
 
 var fileDescriptor_ff11b69cce054369 = []byte{

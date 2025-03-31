@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 
 	"cosmossdk.io/collections"
 )

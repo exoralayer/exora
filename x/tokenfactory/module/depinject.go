@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"gluon/x/tokenfactory/keeper"
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/keeper"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 var _ depinject.OnePerModuleType = AppModule{}

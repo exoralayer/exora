@@ -13,9 +13,9 @@ import (
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"gluon/x/contractmanager/keeper"
-	module "gluon/x/contractmanager/module"
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/keeper"
+	module "github.com/gluon-zone/gluon/x/contractmanager/module"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 type fixture struct {

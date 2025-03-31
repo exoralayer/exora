@@ -3,12 +3,12 @@ package gluon.tokenfactory.module.v1;
 
 import "cosmos/app/v1alpha1/module.proto";
 
-option go_package = "gluon/x/tokenfactory/types";
+option go_package = "github.com/gluon-zone/gluon/x/tokenfactory/types";
 
 // Module is the config object for the module.
 message Module {
   option (cosmos.app.v1alpha1.module) = {
-    go_import: "gluon/x/tokenfactory"
+    go_import: "github.com/gluon-zone/gluon/x/tokenfactory"
   };
 
   // authority defines the custom module authority. If not set, defaults to the governance module.

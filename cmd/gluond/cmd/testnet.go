@@ -27,7 +27,7 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
-	"gluon/app"
+	"github.com/gluon-zone/gluon/app"
 )
 
 const valVotingPower int64 = 900000000000000

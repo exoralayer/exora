@@ -18,7 +18,7 @@ import (
 	authtxconfig "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"gluon/app"
+	"github.com/gluon-zone/gluon/app"
 )
 
 // NewRootCmd creates a new root command for gluond. It is called once in the main function.

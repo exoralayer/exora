@@ -75,7 +75,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/feerefunder/module/v1/module.proto", fileDescriptor_8231a1147dbdfba7)
+	proto.RegisterFile("github.com/gluon-zone/gluon/feerefunder/module/v1/module.proto", fileDescriptor_8231a1147dbdfba7)
 }
 
 var fileDescriptor_8231a1147dbdfba7 = []byte{

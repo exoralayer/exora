@@ -3,7 +3,7 @@ package feerefunder
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

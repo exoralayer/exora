@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"gluon/x/interchaintxs/keeper"
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 func TestMsgUpdateParams(t *testing.T) {

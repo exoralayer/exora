@@ -121,7 +121,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/contractmanager/v1/query.proto", fileDescriptor_3d931c2fed216d0e)
+	proto.RegisterFile("github.com/gluon-zone/gluon/contractmanager/v1/query.proto", fileDescriptor_3d931c2fed216d0e)
 }
 
 var fileDescriptor_3d931c2fed216d0e = []byte{
@@ -228,7 +228,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gluon/contractmanager/v1/query.proto",
+	Metadata: "github.com/gluon-zone/gluon/contractmanager/v1/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

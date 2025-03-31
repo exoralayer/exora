@@ -13,9 +13,9 @@ import (
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"gluon/x/tokenfactory/keeper"
-	module "gluon/x/tokenfactory/module"
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/keeper"
+	module "github.com/gluon-zone/gluon/x/tokenfactory/module"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 type fixture struct {

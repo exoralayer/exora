@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 var _ types.QueryServer = queryServer{}

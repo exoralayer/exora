@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 type msgServer struct {

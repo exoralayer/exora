@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	"gluon/testutil/nullify"
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/testutil/nullify"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 
 	"github.com/stretchr/testify/require"
 )

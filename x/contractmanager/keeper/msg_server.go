@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 type msgServer struct {

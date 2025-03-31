@@ -57,13 +57,13 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/spf13/cast"
 
-	// "gluon/wasmbinding"
+	// "github.com/gluon-zone/gluon/wasmbinding"
 
-	"gluon/docs"
-	contractmanagermodulekeeper "gluon/x/contractmanager/keeper"
-	feerefundermodulekeeper "gluon/x/feerefunder/keeper"
-	interchaintxsmodulekeeper "gluon/x/interchaintxs/keeper"
-	tokenfactorymodulekeeper "gluon/x/tokenfactory/keeper"
+	"github.com/gluon-zone/gluon/docs"
+	contractmanagermodulekeeper "github.com/gluon-zone/gluon/x/contractmanager/keeper"
+	feerefundermodulekeeper "github.com/gluon-zone/gluon/x/feerefunder/keeper"
+	interchaintxsmodulekeeper "github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+	tokenfactorymodulekeeper "github.com/gluon-zone/gluon/x/tokenfactory/keeper"
 )
 
 const (

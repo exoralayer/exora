@@ -66,7 +66,7 @@ func init() {
 	proto.RegisterType((*Params)(nil), "gluon.feerefunder.v1.Params")
 }
 
-func init() { proto.RegisterFile("gluon/feerefunder/v1/params.proto", fileDescriptor_6c2d5c141c21f580) }
+func init() { proto.RegisterFile("github.com/gluon-zone/gluon/feerefunder/v1/params.proto", fileDescriptor_6c2d5c141c21f580) }
 
 var fileDescriptor_6c2d5c141c21f580 = []byte{
 	// 161 bytes of a gzipped FileDescriptorProto

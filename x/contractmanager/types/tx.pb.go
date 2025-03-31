@@ -132,7 +132,7 @@ func init() {
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "gluon.contractmanager.v1.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("gluon/contractmanager/v1/tx.proto", fileDescriptor_9a3b31cd5844f61e) }
+func init() { proto.RegisterFile("github.com/gluon-zone/gluon/contractmanager/v1/tx.proto", fileDescriptor_9a3b31cd5844f61e) }
 
 var fileDescriptor_9a3b31cd5844f61e = []byte{
 	// 336 bytes of a gzipped FileDescriptorProto
@@ -241,7 +241,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gluon/contractmanager/v1/tx.proto",
+	Metadata: "github.com/gluon-zone/gluon/contractmanager/v1/tx.proto",
 }
 
 func (m *MsgUpdateParams) Marshal() (dAtA []byte, err error) {

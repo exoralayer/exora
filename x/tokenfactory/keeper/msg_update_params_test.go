@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"gluon/x/tokenfactory/keeper"
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/keeper"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 func TestMsgUpdateParams(t *testing.T) {

@@ -75,7 +75,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/contractmanager/module/v1/module.proto", fileDescriptor_a2992e9afbc8e8cd)
+	proto.RegisterFile("github.com/gluon-zone/gluon/contractmanager/module/v1/module.proto", fileDescriptor_a2992e9afbc8e8cd)
 }
 
 var fileDescriptor_a2992e9afbc8e8cd = []byte{

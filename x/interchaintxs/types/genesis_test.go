@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 
 	"github.com/stretchr/testify/require"
 )

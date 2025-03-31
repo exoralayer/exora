@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkquery "github.com/cosmos/cosmos-sdk/types/query"
 
-	"gluon/wasmbinding/bindings"
+	"github.com/gluon-zone/gluon/wasmbinding/bindings"
 
 	contractmanagertypes "github.com/neutron-org/neutron/v5/x/contractmanager/types"
 	icatypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"

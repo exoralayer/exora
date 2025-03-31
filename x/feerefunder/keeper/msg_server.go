@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 )
 
 type msgServer struct {

@@ -30,7 +30,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 
-	"gluon/app"
+	"github.com/gluon-zone/gluon/app"
 )
 
 func initRootCmd(

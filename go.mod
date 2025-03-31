@@ -1,4 +1,4 @@
-module gluon
+module github.com/gluon-zone/gluon
 
 go 1.23.6
 

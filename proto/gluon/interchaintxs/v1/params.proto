@@ -4,11 +4,11 @@ package gluon.interchaintxs.v1;
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "gluon/x/interchaintxs/types";
+option go_package = "github.com/gluon-zone/gluon/x/interchaintxs/types";
 
 // Params defines the parameters for the module.
 message Params {
-  option (amino.name) = "gluon/x/interchaintxs/Params";
+  option (amino.name) = "github.com/gluon-zone/gluon/x/interchaintxs/Params";
   option (gogoproto.equal) = true;
 
   

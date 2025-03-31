@@ -121,7 +121,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/interchaintxs/v1/query.proto", fileDescriptor_a97283e0098d1b5a)
+	proto.RegisterFile("github.com/gluon-zone/gluon/interchaintxs/v1/query.proto", fileDescriptor_a97283e0098d1b5a)
 }
 
 var fileDescriptor_a97283e0098d1b5a = []byte{
@@ -228,7 +228,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gluon/interchaintxs/v1/query.proto",
+	Metadata: "github.com/gluon-zone/gluon/interchaintxs/v1/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

@@ -16,7 +16,7 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmvmtypes "github.com/CosmWasm/wasmvm/v2/types"
 
-	"gluon/wasmbinding/bindings"
+	"github.com/gluon-zone/gluon/wasmbinding/bindings"
 
 	contractmanagerkeeper "github.com/neutron-org/neutron/v5/x/contractmanager/keeper"
 	contractmanagertypes "github.com/neutron-org/neutron/v5/x/contractmanager/types"

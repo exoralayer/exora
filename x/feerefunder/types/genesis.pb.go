@@ -76,7 +76,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/feerefunder/v1/genesis.proto", fileDescriptor_63dd3d8d52ae09f3)
+	proto.RegisterFile("github.com/gluon-zone/gluon/feerefunder/v1/genesis.proto", fileDescriptor_63dd3d8d52ae09f3)
 }
 
 var fileDescriptor_63dd3d8d52ae09f3 = []byte{

@@ -4,11 +4,11 @@ package gluon.tokenfactory.v1;
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "gluon/x/tokenfactory/types";
+option go_package = "github.com/gluon-zone/gluon/x/tokenfactory/types";
 
 // Params defines the parameters for the module.
 message Params {
-  option (amino.name) = "gluon/x/tokenfactory/Params";
+  option (amino.name) = "github.com/gluon-zone/gluon/x/tokenfactory/Params";
   option (gogoproto.equal) = true;
 
   

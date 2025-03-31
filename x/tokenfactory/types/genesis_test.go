@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 
 	"github.com/stretchr/testify/require"
 )

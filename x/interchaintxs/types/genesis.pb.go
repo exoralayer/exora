@@ -84,7 +84,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("gluon/interchaintxs/v1/genesis.proto", fileDescriptor_bf7e5a0b64a31f83)
+	proto.RegisterFile("github.com/gluon-zone/gluon/interchaintxs/v1/genesis.proto", fileDescriptor_bf7e5a0b64a31f83)
 }
 
 var fileDescriptor_bf7e5a0b64a31f83 = []byte{

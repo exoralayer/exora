@@ -13,8 +13,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	"gluon/x/feerefunder/keeper"
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/x/feerefunder/keeper"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 )
 
 var (

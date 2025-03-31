@@ -7,8 +7,8 @@ import (
 	clienthelpers "cosmossdk.io/client/v2/helpers"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"gluon/app"
-	"gluon/cmd/gluond/cmd"
+	"github.com/gluon-zone/gluon/app"
+	"github.com/gluon-zone/gluon/cmd/gluond/cmd"
 )
 
 func main() {

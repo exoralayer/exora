@@ -3,7 +3,7 @@ package tokenfactory
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

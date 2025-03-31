@@ -120,7 +120,7 @@ func init() {
 	proto.RegisterType((*QueryParamsResponse)(nil), "gluon.feerefunder.v1.QueryParamsResponse")
 }
 
-func init() { proto.RegisterFile("gluon/feerefunder/v1/query.proto", fileDescriptor_eb8ff35253a0d82d) }
+func init() { proto.RegisterFile("github.com/gluon-zone/gluon/feerefunder/v1/query.proto", fileDescriptor_eb8ff35253a0d82d) }
 
 var fileDescriptor_eb8ff35253a0d82d = []byte{
 	// 310 bytes of a gzipped FileDescriptorProto
@@ -226,7 +226,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gluon/feerefunder/v1/query.proto",
+	Metadata: "github.com/gluon-zone/gluon/feerefunder/v1/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

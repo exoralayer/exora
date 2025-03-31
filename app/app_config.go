@@ -70,17 +70,17 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	_ "gluon/x/contractmanager/module"
-	contractmanagermoduletypes "gluon/x/contractmanager/types"
+	_ "github.com/gluon-zone/gluon/x/contractmanager/module"
+	contractmanagermoduletypes "github.com/gluon-zone/gluon/x/contractmanager/types"
 
-	_ "gluon/x/feerefunder/module"
-	feerefundermoduletypes "gluon/x/feerefunder/types"
+	_ "github.com/gluon-zone/gluon/x/feerefunder/module"
+	feerefundermoduletypes "github.com/gluon-zone/gluon/x/feerefunder/types"
 
-	_ "gluon/x/interchaintxs/module"
-	interchaintxsmoduletypes "gluon/x/interchaintxs/types"
+	_ "github.com/gluon-zone/gluon/x/interchaintxs/module"
+	interchaintxsmoduletypes "github.com/gluon-zone/gluon/x/interchaintxs/types"
 
-	_ "gluon/x/tokenfactory/module"
-	tokenfactorymoduletypes "gluon/x/tokenfactory/types"
+	_ "github.com/gluon-zone/gluon/x/tokenfactory/module"
+	tokenfactorymoduletypes "github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 var (

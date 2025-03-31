@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"gluon/x/contractmanager/types"
+	"github.com/gluon-zone/gluon/x/contractmanager/types"
 
 	"github.com/stretchr/testify/require"
 )

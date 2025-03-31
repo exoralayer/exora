@@ -13,8 +13,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	"gluon/x/tokenfactory/keeper"
-	"gluon/x/tokenfactory/types"
+	"github.com/gluon-zone/gluon/x/tokenfactory/keeper"
+	"github.com/gluon-zone/gluon/x/tokenfactory/types"
 )
 
 var (

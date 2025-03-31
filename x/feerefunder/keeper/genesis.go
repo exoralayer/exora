@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"gluon/x/feerefunder/types"
+	"github.com/gluon-zone/gluon/x/feerefunder/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

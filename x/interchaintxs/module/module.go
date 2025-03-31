@@ -15,9 +15,9 @@ import (
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 
-	"gluon/x/interchaintxs/client/cli"
-	"gluon/x/interchaintxs/keeper"
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/client/cli"
+	"github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 var (

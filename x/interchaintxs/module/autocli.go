@@ -3,7 +3,7 @@ package interchaintxs
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

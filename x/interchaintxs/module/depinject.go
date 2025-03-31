@@ -10,8 +10,8 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
-	"gluon/x/interchaintxs/keeper"
-	"gluon/x/interchaintxs/types"
+	"github.com/gluon-zone/gluon/x/interchaintxs/keeper"
+	"github.com/gluon-zone/gluon/x/interchaintxs/types"
 )
 
 var _ depinject.OnePerModuleType = AppModule{}

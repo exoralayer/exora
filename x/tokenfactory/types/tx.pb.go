@@ -132,7 +132,7 @@ func init() {
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "gluon.tokenfactory.v1.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("gluon/tokenfactory/v1/tx.proto", fileDescriptor_798c272d3bffefba) }
+func init() { proto.RegisterFile("github.com/gluon-zone/gluon/tokenfactory/v1/tx.proto", fileDescriptor_798c272d3bffefba) }
 
 var fileDescriptor_798c272d3bffefba = []byte{
 	// 332 bytes of a gzipped FileDescriptorProto
@@ -241,7 +241,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gluon/tokenfactory/v1/tx.proto",
+	Metadata: "github.com/gluon-zone/gluon/tokenfactory/v1/tx.proto",
 }
 
 func (m *MsgUpdateParams) Marshal() (dAtA []byte, err error) {
