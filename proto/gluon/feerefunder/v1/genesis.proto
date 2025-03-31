@@ -1,0 +1,17 @@
+syntax = "proto3";
+package gluon.feerefunder.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "gluon/feerefunder/v1/params.proto";
+
+option go_package = "gluon/x/feerefunder/types";
+
+// GenesisState defines the feerefunder module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

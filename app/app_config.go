@@ -73,7 +73,9 @@ import (
 	_ "gluon/x/contractmanager/module"
 	contractmanagermoduletypes "gluon/x/contractmanager/types"
 
-	feetypes "github.com/neutron-org/neutron/v5/x/feerefunder/types"
+	_ "gluon/x/feerefunder/module"
+	feerefundermoduletypes "gluon/x/feerefunder/types"
+
 	interchaintxstypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"
 	tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
 )
@@ -90,7 +92,7 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
 		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
-		{Account: feetypes.ModuleName},
+		{Account: feerefundermoduletypes.ModuleName},
 		{Account: tokenfactorytypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
@@ -136,7 +138,7 @@ var (
 						wasmtypes.ModuleName,
 
 						contractmanagermoduletypes.ModuleName,
-						feetypes.ModuleName,
+						feerefundermoduletypes.ModuleName,
 						interchaintxstypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
@@ -150,7 +152,7 @@ var (
 						wasmtypes.ModuleName,
 
 						contractmanagermoduletypes.ModuleName,
-						feetypes.ModuleName,
+						feerefundermoduletypes.ModuleName,
 						interchaintxstypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
@@ -191,7 +193,7 @@ var (
 						wasmtypes.ModuleName,
 
 						contractmanagermoduletypes.ModuleName,
-						feetypes.ModuleName,
+						feerefundermoduletypes.ModuleName,
 						interchaintxstypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
@@ -288,6 +290,10 @@ var (
 			{
 				Name:   contractmanagermoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&contractmanagermoduletypes.Module{}),
+			},
+			{
+				Name:   feerefundermoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&feerefundermoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

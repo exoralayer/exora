@@ -61,6 +61,7 @@ import (
 
 	"gluon/docs"
 	contractmanagermodulekeeper "gluon/x/contractmanager/keeper"
+	feerefundermodulekeeper "gluon/x/feerefunder/keeper"
 )
 
 const (
@@ -112,6 +113,7 @@ type App struct {
 	WasmKeeper wasmkeeper.Keeper
 
 	ContractmanagerKeeper contractmanagermodulekeeper.Keeper
+	FeerefunderKeeper     feerefundermodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -192,6 +194,7 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
 		&app.ContractmanagerKeeper,
+		&app.FeerefunderKeeper,
 	); err != nil {
 		panic(err)
 	}
