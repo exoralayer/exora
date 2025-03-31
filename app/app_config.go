@@ -76,7 +76,9 @@ import (
 	_ "gluon/x/feerefunder/module"
 	feerefundermoduletypes "gluon/x/feerefunder/types"
 
-	interchaintxstypes "github.com/neutron-org/neutron/v5/x/interchaintxs/types"
+	_ "gluon/x/interchaintxs/module"
+	interchaintxsmoduletypes "gluon/x/interchaintxs/types"
+
 	tokenfactorytypes "github.com/neutron-org/neutron/v5/x/tokenfactory/types"
 )
 
@@ -139,7 +141,7 @@ var (
 
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
-						interchaintxstypes.ModuleName,
+						interchaintxsmoduletypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
@@ -153,7 +155,7 @@ var (
 
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
-						interchaintxstypes.ModuleName,
+						interchaintxsmoduletypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
@@ -194,7 +196,7 @@ var (
 
 						contractmanagermoduletypes.ModuleName,
 						feerefundermoduletypes.ModuleName,
-						interchaintxstypes.ModuleName,
+						interchaintxsmoduletypes.ModuleName,
 						tokenfactorytypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
@@ -294,6 +296,10 @@ var (
 			{
 				Name:   feerefundermoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&feerefundermoduletypes.Module{}),
+			},
+			{
+				Name:   interchaintxsmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&interchaintxsmoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
