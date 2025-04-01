@@ -15,10 +15,7 @@ func (m msgServer) UpdateToken(ctx context.Context, msg *types.MsgUpdateToken) (
 	}
 
 	// Check if the contract address is already in use
-	found, err := m.Keeper.HasToken(ctx, contractAddr)
-	if err != nil {
-		return nil, err
-	}
+	found := m.Keeper.HasToken(ctx, contractAddr)
 	if !found {
 		return nil, errorsmod.Wrap(types.ErrTokenDoesNotExist, "token does not exist")
 	}

@@ -17,12 +17,9 @@ func (k Keeper) BeforeSendHook(ctx context.Context, from sdk.AccAddress, to sdk.
 			continue
 		}
 
-		token, err, found := k.GetToken(ctx, contract)
-		if !found {
-			continue
-		}
+		token, err := k.GetToken(ctx, contract)
 		if err != nil {
-			return err
+			continue
 		}
 
 		if token.BeforeSendHookEnabled {

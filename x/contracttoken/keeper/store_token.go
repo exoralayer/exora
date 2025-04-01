@@ -3,23 +3,25 @@ package keeper
 import (
 	"context"
 
-	"cosmossdk.io/collections"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/gluon-zone/gluon/x/contracttoken/types"
 )
 
-func (k Keeper) HasToken(ctx context.Context, contract sdk.AccAddress) (bool, error) {
-	_, err, found := k.GetToken(ctx, contract)
-	return found, err
+func (k Keeper) HasToken(ctx context.Context, contract sdk.AccAddress) bool {
+	_, err := k.GetToken(ctx, contract)
+	if err != nil {
+		return false
+	}
+	return true
 }
 
-func (k Keeper) GetToken(ctx context.Context, contract sdk.AccAddress) (types.Token, error, bool) {
+func (k Keeper) GetToken(ctx context.Context, contract sdk.AccAddress) (types.Token, error) {
 	token, err := k.ContractTokens.Get(ctx, contract)
-	if err == collections.ErrNotFound {
-		return types.Token{}, nil, false
+	if err != nil {
+		return types.Token{}, err
 	}
-	return token, err, true
+	return token, nil
 }
 
 func (k Keeper) SetToken(ctx context.Context, token types.Token) error {
