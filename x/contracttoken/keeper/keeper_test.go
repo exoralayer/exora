@@ -12,9 +12,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/golang/mock/gomock"
 
 	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
 	module "github.com/gluon-zone/gluon/x/contracttoken/module"
+	contracttokentestutil "github.com/gluon-zone/gluon/x/contracttoken/testutil"
 	"github.com/gluon-zone/gluon/x/contracttoken/types"
 )
 
@@ -22,7 +24,13 @@ type fixture struct {
 	ctx          context.Context
 	keeper       keeper.Keeper
 	addressCodec address.Codec
+	ctrl         *gomock.Controller
+	mockAuth     *contracttokentestutil.MockAuthKeeper
+	mockBank     *contracttokentestutil.MockBankKeeper
+	mockWasm     *contracttokentestutil.MockWasmKeeper
 }
+
+//go:generate mockgen -destination ../testutil/expected_keepers.go -package testutil github.com/gluon-zone/gluon/x/contracttoken/types AuthKeeper,BankKeeper,WasmKeeper
 
 func initFixture(t *testing.T) *fixture {
 	t.Helper()
@@ -36,14 +44,19 @@ func initFixture(t *testing.T) *fixture {
 
 	authority := authtypes.NewModuleAddress(types.GovModuleName)
 
+	ctrl := gomock.NewController(t)
+	mockAuth := contracttokentestutil.NewMockAuthKeeper(ctrl)
+	mockBank := contracttokentestutil.NewMockBankKeeper(ctrl)
+	mockWasm := contracttokentestutil.NewMockWasmKeeper(ctrl)
+
 	k := keeper.NewKeeper(
 		storeService,
 		encCfg.Codec,
 		addressCodec,
 		authority,
-		nil,
-		nil,
-		nil,
+		mockAuth,
+		mockBank,
+		mockWasm,
 	)
 
 	// Initialize params
@@ -55,5 +68,9 @@ func initFixture(t *testing.T) *fixture {
 		ctx:          ctx,
 		keeper:       k,
 		addressCodec: addressCodec,
+		ctrl:         ctrl,
+		mockAuth:     mockAuth,
+		mockBank:     mockBank,
+		mockWasm:     mockWasm,
 	}
 }
