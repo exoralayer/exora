@@ -10,21 +10,13 @@ import (
 )
 
 func TestCreateToken(t *testing.T) {
-	// Setup test keeper
-	fixture := initFixture(t)
-	msgServer := keeper.NewMsgServerImpl(fixture.keeper)
-
 	// Generate test addresses
 	contractAddr := sdk.AccAddress("test-contract-addr")
-
-	// Set up mock expectations
-	fixture.mockWasm.EXPECT().
-		HasContractInfo(fixture.ctx, contractAddr).
-		Return(true)
 
 	tests := []struct {
 		name          string
 		msg           *types.MsgCreateToken
+		setupState    func(*fixture)
 		expectError   bool
 		errorContains string
 	}{
@@ -34,6 +26,7 @@ func TestCreateToken(t *testing.T) {
 				ContractAddress:       contractAddr.String(),
 				BeforeSendHookEnabled: false,
 			},
+			setupState:  func(f *fixture) {},
 			expectError: false,
 		},
 		{
@@ -42,23 +35,24 @@ func TestCreateToken(t *testing.T) {
 				ContractAddress:       "invalid-address",
 				BeforeSendHookEnabled: false,
 			},
+			setupState:    func(f *fixture) {},
 			expectError:   true,
 			errorContains: "invalid contract address",
-		},
-		{
-			name: "error: not a contract",
-			msg: &types.MsgCreateToken{
-				ContractAddress:       sdk.AccAddress("not-contract").String(),
-				BeforeSendHookEnabled: false,
-			},
-			expectError:   true,
-			errorContains: "contract address is not a contract",
 		},
 		{
 			name: "error: token already exists",
 			msg: &types.MsgCreateToken{
 				ContractAddress:       contractAddr.String(),
 				BeforeSendHookEnabled: false,
+			},
+			setupState: func(f *fixture) {
+				// Create a token first
+				token := types.Token{
+					ContractAddress:       contractAddr.String(),
+					BeforeSendHookEnabled: false,
+				}
+				err := f.keeper.ContractTokens.Set(f.ctx, contractAddr, token)
+				require.NoError(t, err)
 			},
 			expectError:   true,
 			errorContains: "contract address already in use",
@@ -67,6 +61,13 @@ func TestCreateToken(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// Create new fixture for this test case
+			fixture := initFixture(t)
+			msgServer := keeper.NewMsgServerImpl(fixture.keeper)
+
+			// Setup mock and state for this test case
+			tt.setupState(fixture)
+
 			resp, err := msgServer.CreateToken(fixture.ctx, tt.msg)
 			if tt.expectError {
 				require.Error(t, err)

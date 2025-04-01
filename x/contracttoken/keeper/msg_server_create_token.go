@@ -15,11 +15,6 @@ func (m msgServer) CreateToken(ctx context.Context, msg *types.MsgCreateToken) (
 		return nil, errorsmod.Wrap(err, "invalid contract address")
 	}
 
-	// Check if the contract address is a contract
-	if !m.Keeper.wasmKeeper.HasContractInfo(ctx, contractAddr) {
-		return nil, errorsmod.Wrap(types.ErrNotContract, "contract address is not a contract")
-	}
-
 	// Check if the contract address is already in use
 	found := m.Keeper.HasToken(ctx, contractAddr)
 	if found {

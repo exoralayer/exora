@@ -102,6 +102,11 @@ func TestSetMetadata(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if !tt.expectError {
+				fixture.mockBank.EXPECT().
+					SetDenomMetaData(fixture.ctx, tt.msg.Metadata)
+			}
+
 			resp, err := msgServer.SetMetadata(fixture.ctx, tt.msg)
 			if tt.expectError {
 				require.Error(t, err)
@@ -110,10 +115,6 @@ func TestSetMetadata(t *testing.T) {
 			}
 			require.NoError(t, err)
 			require.NotNil(t, resp)
-
-			// Verify metadata was set
-			fixture.mockBank.EXPECT().
-				SetDenomMetaData(fixture.ctx, tt.msg.Metadata)
 		})
 	}
 }
