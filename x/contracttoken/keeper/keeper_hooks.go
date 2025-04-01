@@ -37,10 +37,12 @@ func (k Keeper) BeforeSendHook(ctx context.Context, from sdk.AccAddress, to sdk.
 }
 
 func (k Keeper) ExecuteBeforeSend(ctx context.Context, contract sdk.AccAddress, from sdk.AccAddress, to sdk.AccAddress, amount math.Int) error {
-	msg := BeforeSendMsg{
-		From:   from.String(),
-		To:     to.String(),
-		Amount: amount,
+	msg := ExecuteMsg{
+		BeforeSend: BeforeSendMsg{
+			From:   from.String(),
+			To:     to.String(),
+			Amount: amount,
+		},
 	}
 	msgJson, err := json.Marshal(msg)
 	if err != nil {
@@ -48,12 +50,16 @@ func (k Keeper) ExecuteBeforeSend(ctx context.Context, contract sdk.AccAddress, 
 	}
 
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
-	_, err = k.wasmKeeper.Execute(sdkCtx, contract, from, msgJson, sdk.NewCoins())
+	_, err = k.wasmKeeper.Execute(sdkCtx, contract, contract, msgJson, sdk.NewCoins())
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+type ExecuteMsg struct {
+	BeforeSend BeforeSendMsg `json:"before_send"`
 }
 
 type BeforeSendMsg struct {
