@@ -19,11 +19,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	"github.com/gluon-zone/gluon/app"
+	"github.com/gluon-zone/gluon/app/custom"
 )
 
 // NewRootCmd creates a new root command for gluond. It is called once in the main function.
 func NewRootCmd() *cobra.Command {
 	var (
+		appCodec           codec.Codec
 		autoCliOpts        autocli.AppOptions
 		moduleBasicManager module.BasicManager
 		clientCtx          client.Context
@@ -39,6 +41,8 @@ func NewRootCmd() *cobra.Command {
 		&autoCliOpts,
 		&moduleBasicManager,
 		&clientCtx,
+
+		&appCodec,
 	); err != nil {
 		panic(err)
 	}
@@ -82,6 +86,9 @@ func NewRootCmd() *cobra.Command {
 		moduleBasicManager[name] = module.CoreAppModuleBasicAdaptor(name, mod)
 		autoCliOpts.Modules[name] = mod
 	}
+	// <gluon>
+	custom.ReplaceCustomModules(moduleBasicManager, appCodec)
+	// </gluon>
 
 	initRootCmd(rootCmd, clientCtx.TxConfig, moduleBasicManager)
 

@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"fmt"
+
 	cmtcfg "github.com/cometbft/cometbft/config"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+
+	"github.com/gluon-zone/gluon/app/consts"
 )
 
 // initCometBFTConfig helps to override default CometBFT Config values.
@@ -43,7 +47,7 @@ func initAppConfig() (string, interface{}) {
 	//   own app.toml to override, or use this default value.
 	//
 	// In tests, we set the min gas prices to 0.
-	srvCfg.MinGasPrices = "0uglu"
+	srvCfg.MinGasPrices = fmt.Sprintf("%v%s", consts.DefaultMinGasPrice, consts.Denom)
 
 	customAppConfig := CustomAppConfig{
 		Config: *srvCfg,
