@@ -18,10 +18,6 @@ func init() {
 	)
 }
 
-type ModuleInputs struct {
-	bank.ModuleInputs
-}
-
 type ModuleOutputs struct {
 	depinject.Out
 
@@ -29,8 +25,8 @@ type ModuleOutputs struct {
 	Module     appmodule.AppModule
 }
 
-func ProvideModule(in ModuleInputs) ModuleOutputs {
-	outputs := bank.ProvideModule(in.ModuleInputs)
+func ProvideModule(in bank.ModuleInputs) ModuleOutputs {
+	outputs := bank.ProvideModule(in)
 
 	k := customkeeper.NewKeeper(
 		outputs.BankKeeper,

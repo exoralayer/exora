@@ -9,9 +9,8 @@ import (
 	reflect "reflect"
 
 	address "cosmossdk.io/core/address"
-	types "github.com/CosmWasm/wasmd/x/wasm/types"
-	types0 "github.com/cosmos/cosmos-sdk/types"
-	types1 "github.com/cosmos/cosmos-sdk/x/bank/types"
+	types "github.com/cosmos/cosmos-sdk/types"
+	types0 "github.com/cosmos/cosmos-sdk/x/bank/types"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -53,10 +52,10 @@ func (mr *MockAuthKeeperMockRecorder) AddressCodec() *gomock.Call {
 }
 
 // GetAccount mocks base method.
-func (m *MockAuthKeeper) GetAccount(arg0 context.Context, arg1 types0.AccAddress) types0.AccountI {
+func (m *MockAuthKeeper) GetAccount(arg0 context.Context, arg1 types.AccAddress) types.AccountI {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAccount", arg0, arg1)
-	ret0, _ := ret[0].(types0.AccountI)
+	ret0, _ := ret[0].(types.AccountI)
 	return ret0
 }
 
@@ -67,10 +66,10 @@ func (mr *MockAuthKeeperMockRecorder) GetAccount(arg0, arg1 interface{}) *gomock
 }
 
 // GetModuleAccount mocks base method.
-func (m *MockAuthKeeper) GetModuleAccount(arg0 context.Context, arg1 string) types0.ModuleAccountI {
+func (m *MockAuthKeeper) GetModuleAccount(arg0 context.Context, arg1 string) types.ModuleAccountI {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetModuleAccount", arg0, arg1)
-	ret0, _ := ret[0].(types0.ModuleAccountI)
+	ret0, _ := ret[0].(types.ModuleAccountI)
 	return ret0
 }
 
@@ -104,7 +103,7 @@ func (m *MockBankKeeper) EXPECT() *MockBankKeeperMockRecorder {
 }
 
 // BurnCoins mocks base method.
-func (m *MockBankKeeper) BurnCoins(arg0 context.Context, arg1 string, arg2 types0.Coins) error {
+func (m *MockBankKeeper) BurnCoins(arg0 context.Context, arg1 string, arg2 types.Coins) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BurnCoins", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
@@ -118,7 +117,7 @@ func (mr *MockBankKeeperMockRecorder) BurnCoins(arg0, arg1, arg2 interface{}) *g
 }
 
 // MintCoins mocks base method.
-func (m *MockBankKeeper) MintCoins(arg0 context.Context, arg1 string, arg2 types0.Coins) error {
+func (m *MockBankKeeper) MintCoins(arg0 context.Context, arg1 string, arg2 types.Coins) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MintCoins", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
@@ -132,7 +131,7 @@ func (mr *MockBankKeeperMockRecorder) MintCoins(arg0, arg1, arg2 interface{}) *g
 }
 
 // SendCoins mocks base method.
-func (m *MockBankKeeper) SendCoins(arg0 context.Context, arg1, arg2 types0.AccAddress, arg3 types0.Coins) error {
+func (m *MockBankKeeper) SendCoins(arg0 context.Context, arg1, arg2 types.AccAddress, arg3 types.Coins) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SendCoins", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(error)
@@ -146,7 +145,7 @@ func (mr *MockBankKeeperMockRecorder) SendCoins(arg0, arg1, arg2, arg3 interface
 }
 
 // SendCoinsFromAccountToModule mocks base method.
-func (m *MockBankKeeper) SendCoinsFromAccountToModule(arg0 context.Context, arg1 types0.AccAddress, arg2 string, arg3 types0.Coins) error {
+func (m *MockBankKeeper) SendCoinsFromAccountToModule(arg0 context.Context, arg1 types.AccAddress, arg2 string, arg3 types.Coins) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SendCoinsFromAccountToModule", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(error)
@@ -160,7 +159,7 @@ func (mr *MockBankKeeperMockRecorder) SendCoinsFromAccountToModule(arg0, arg1, a
 }
 
 // SendCoinsFromModuleToAccount mocks base method.
-func (m *MockBankKeeper) SendCoinsFromModuleToAccount(arg0 context.Context, arg1 string, arg2 types0.AccAddress, arg3 types0.Coins) error {
+func (m *MockBankKeeper) SendCoinsFromModuleToAccount(arg0 context.Context, arg1 string, arg2 types.AccAddress, arg3 types.Coins) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SendCoinsFromModuleToAccount", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(error)
@@ -174,7 +173,7 @@ func (mr *MockBankKeeperMockRecorder) SendCoinsFromModuleToAccount(arg0, arg1, a
 }
 
 // SetDenomMetaData mocks base method.
-func (m *MockBankKeeper) SetDenomMetaData(arg0 context.Context, arg1 types1.Metadata) {
+func (m *MockBankKeeper) SetDenomMetaData(arg0 context.Context, arg1 types0.Metadata) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "SetDenomMetaData", arg0, arg1)
 }
@@ -209,7 +208,7 @@ func (m *MockWasmKeeper) EXPECT() *MockWasmKeeperMockRecorder {
 }
 
 // Execute mocks base method.
-func (m *MockWasmKeeper) Execute(arg0 types0.Context, arg1, arg2 types0.AccAddress, arg3 []byte, arg4 types0.Coins) ([]byte, error) {
+func (m *MockWasmKeeper) Execute(arg0 types.Context, arg1, arg2 types.AccAddress, arg3 []byte, arg4 types.Coins) ([]byte, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Execute", arg0, arg1, arg2, arg3, arg4)
 	ret0, _ := ret[0].([]byte)
@@ -221,32 +220,4 @@ func (m *MockWasmKeeper) Execute(arg0 types0.Context, arg1, arg2 types0.AccAddre
 func (mr *MockWasmKeeperMockRecorder) Execute(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Execute", reflect.TypeOf((*MockWasmKeeper)(nil).Execute), arg0, arg1, arg2, arg3, arg4)
-}
-
-// GetContractInfo mocks base method.
-func (m *MockWasmKeeper) GetContractInfo(arg0 context.Context, arg1 types0.AccAddress) *types.ContractInfo {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetContractInfo", arg0, arg1)
-	ret0, _ := ret[0].(*types.ContractInfo)
-	return ret0
-}
-
-// GetContractInfo indicates an expected call of GetContractInfo.
-func (mr *MockWasmKeeperMockRecorder) GetContractInfo(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetContractInfo", reflect.TypeOf((*MockWasmKeeper)(nil).GetContractInfo), arg0, arg1)
-}
-
-// HasContractInfo mocks base method.
-func (m *MockWasmKeeper) HasContractInfo(arg0 context.Context, arg1 types0.AccAddress) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "HasContractInfo", arg0, arg1)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
-
-// HasContractInfo indicates an expected call of HasContractInfo.
-func (mr *MockWasmKeeperMockRecorder) HasContractInfo(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HasContractInfo", reflect.TypeOf((*MockWasmKeeper)(nil).HasContractInfo), arg0, arg1)
 }

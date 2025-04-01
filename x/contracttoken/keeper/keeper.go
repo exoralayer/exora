@@ -26,7 +26,7 @@ type Keeper struct {
 
 	authKeeper types.AuthKeeper
 	bankKeeper types.BankKeeper
-	wasmKeeper types.WasmKeeper
+	WasmKeeper types.WasmKeeper
 }
 
 func NewKeeper(
@@ -56,7 +56,7 @@ func NewKeeper(
 
 		authKeeper: authKeeper,
 		bankKeeper: bankKeeper,
-		wasmKeeper: wasmKeeper,
+		WasmKeeper: wasmKeeper,
 	}
 
 	schema, err := sb.Build()

@@ -47,7 +47,7 @@ func (k Keeper) ExecuteBeforeSend(ctx context.Context, contract sdk.AccAddress, 
 	}
 
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
-	_, err = k.wasmKeeper.Execute(sdkCtx, contract, contract, msgJson, sdk.NewCoins())
+	_, err = k.WasmKeeper.Execute(sdkCtx, contract, contract, msgJson, sdk.NewCoins())
 	if err != nil {
 		return err
 	}

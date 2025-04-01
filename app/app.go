@@ -113,7 +113,7 @@ type App struct {
 
 	WasmKeeper wasmkeeper.Keeper
 
-	ContractTokenKeeper contracttokenmodulekeeper.Keeper
+	ContractTokenKeeper *contracttokenmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -271,6 +271,7 @@ func New(
 
 	/****  Module Options ****/
 	app.BankKeeper.BeforeSendHooks = append(app.BankKeeper.BeforeSendHooks, app.ContractTokenKeeper.BeforeSendHook)
+	app.ContractTokenKeeper.WasmKeeper = wasmkeeper.NewDefaultPermissionKeeper(app.WasmKeeper)
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
 	overrideModules := map[string]module.AppModuleSimulation{
