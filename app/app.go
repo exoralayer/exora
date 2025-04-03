@@ -205,6 +205,13 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
+	// WasmのStoreKeyを登録
+	if err := app.RegisterStores(
+		storetypes.NewKVStoreKey(wasmtypes.StoreKey),
+	); err != nil {
+		panic(err)
+	}
+
 	// IBCを手動で登録
 	if err := app.registerIBCModules(appOpts); err != nil {
 		panic(err)
