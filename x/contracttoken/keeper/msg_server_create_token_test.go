@@ -51,7 +51,7 @@ func TestCreateToken(t *testing.T) {
 					ContractAddress:       contractAddr.String(),
 					BeforeSendHookEnabled: false,
 				}
-				err := f.keeper.ContractTokens.Set(f.ctx, contractAddr, token)
+				err := f.keeper.Tokens.Set(f.ctx, contractAddr, token)
 				require.NoError(t, err)
 			},
 			expectError:   true,
@@ -78,7 +78,7 @@ func TestCreateToken(t *testing.T) {
 			require.NotNil(t, resp)
 
 			// Verify token was created
-			token, err := fixture.keeper.ContractTokens.Get(fixture.ctx, contractAddr)
+			token, err := fixture.keeper.Tokens.Get(fixture.ctx, contractAddr)
 			require.NoError(t, err)
 			require.Equal(t, tt.msg.ContractAddress, token.ContractAddress)
 			require.Equal(t, tt.msg.BeforeSendHookEnabled, token.BeforeSendHookEnabled)

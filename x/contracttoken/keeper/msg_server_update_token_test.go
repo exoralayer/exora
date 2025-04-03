@@ -22,7 +22,7 @@ func TestUpdateToken(t *testing.T) {
 		ContractAddress:       contractAddr.String(),
 		BeforeSendHookEnabled: false,
 	}
-	err := fixture.keeper.ContractTokens.Set(fixture.ctx, contractAddr, token)
+	err := fixture.keeper.Tokens.Set(fixture.ctx, contractAddr, token)
 	require.NoError(t, err)
 
 	tests := []struct {
@@ -71,7 +71,7 @@ func TestUpdateToken(t *testing.T) {
 			require.NotNil(t, resp)
 
 			// Verify token was updated
-			token, err := fixture.keeper.ContractTokens.Get(fixture.ctx, contractAddr)
+			token, err := fixture.keeper.Tokens.Get(fixture.ctx, contractAddr)
 			require.NoError(t, err)
 			require.Equal(t, tt.msg.ContractAddress, token.ContractAddress)
 			require.Equal(t, tt.msg.BeforeSendHookEnabled, token.BeforeSendHookEnabled)

@@ -23,7 +23,7 @@ func TestSetMetadata(t *testing.T) {
 		ContractAddress:       contractAddr.String(),
 		BeforeSendHookEnabled: false,
 	}
-	err := fixture.keeper.ContractTokens.Set(fixture.ctx, contractAddr, token)
+	err := fixture.keeper.Tokens.Set(fixture.ctx, contractAddr, token)
 	require.NoError(t, err)
 
 	// Get denom

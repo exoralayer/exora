@@ -17,6 +17,6 @@ const (
 
 // ParamsKey is the prefix to retrieve all Params
 var (
-	ParamsKey         = collections.NewPrefix("params")
-	ContractTokensKey = collections.NewPrefix("contract_tokens")
+	ParamsKey = collections.NewPrefix("params")
+	TokensKey = collections.NewPrefix("tokens")
 )

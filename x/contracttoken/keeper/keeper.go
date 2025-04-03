@@ -22,7 +22,7 @@ type Keeper struct {
 	Schema collections.Schema
 	Params collections.Item[types.Params]
 
-	ContractTokens collections.Map[sdk.AccAddress, types.Token]
+	Tokens collections.Map[sdk.AccAddress, types.Token]
 
 	authKeeper types.AuthKeeper
 	bankKeeper types.BankKeeper
@@ -52,7 +52,7 @@ func NewKeeper(
 
 		Params: collections.NewItem(sb, types.ParamsKey, "params", codec.CollValue[types.Params](cdc)),
 
-		ContractTokens: collections.NewMap(sb, types.ContractTokensKey, "contract_tokens", sdk.AccAddressKey, codec.CollValue[types.Token](cdc)),
+		Tokens: collections.NewMap(sb, types.TokensKey, "tokens", sdk.AccAddressKey, codec.CollValue[types.Token](cdc)),
 
 		authKeeper: authKeeper,
 		bankKeeper: bankKeeper,
