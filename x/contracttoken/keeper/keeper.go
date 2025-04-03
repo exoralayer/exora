@@ -8,7 +8,7 @@ import (
 	corestore "cosmossdk.io/core/store"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 type Keeper struct {

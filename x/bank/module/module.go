@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	"github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	customkeeper "github.com/gluon-zone/gluon/x/bank/keeper"
+	customkeeper "github.com/exoralayer/exora/x/bank/keeper"
 )
 
 type AppModule struct {

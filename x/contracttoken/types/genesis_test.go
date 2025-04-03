@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 
 	"github.com/stretchr/testify/require"
 )

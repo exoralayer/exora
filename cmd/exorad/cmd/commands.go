@@ -30,7 +30,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 
-	"github.com/gluon-zone/gluon/app"
+	"github.com/exoralayer/exora/app"
 )
 
 func initRootCmd(
@@ -49,12 +49,12 @@ func initRootCmd(
 	)
 
 	// server.AddCommandsWithStartCmdOptions(rootCmd, app.DefaultNodeHome, newApp, appExport, server.StartCmdOptions{})
-	// <gluon>
+	// <exora>
 	server.AddCommandsWithStartCmdOptions(rootCmd, app.DefaultNodeHome, newApp, appExport, server.StartCmdOptions{AddFlags: func(cmd *cobra.Command) {
 		wasm.AddModuleInitFlags(cmd)
 	}})
 	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
-	// </gluon>
+	// </exora>
 
 	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(

@@ -1,9 +1,9 @@
 syntax = "proto3";
-package gluon.contracttoken.v1;
+package exora.contracttoken.v1;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/gluon-zone/gluon/x/contracttoken/types";
+option go_package = "github.com/exoralayer/exora/x/contracttoken/types";
 
 // Params defines the parameters for the module.
 message Params {

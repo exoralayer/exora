@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/keeper"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 func TestParamsQuery(t *testing.T) {

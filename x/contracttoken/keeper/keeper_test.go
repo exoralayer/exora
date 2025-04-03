@@ -14,10 +14,10 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/golang/mock/gomock"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
-	module "github.com/gluon-zone/gluon/x/contracttoken/module"
-	contracttokentestutil "github.com/gluon-zone/gluon/x/contracttoken/testutil"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/keeper"
+	module "github.com/exoralayer/exora/x/contracttoken/module"
+	contracttokentestutil "github.com/exoralayer/exora/x/contracttoken/testutil"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 type fixture struct {
@@ -30,7 +30,7 @@ type fixture struct {
 	mockWasm     *contracttokentestutil.MockWasmKeeper
 }
 
-//go:generate mockgen -destination ../testutil/expected_keepers.go -package testutil github.com/gluon-zone/gluon/x/contracttoken/types AuthKeeper,BankKeeper,WasmKeeper
+//go:generate mockgen -destination ../testutil/expected_keepers.go -package testutil github.com/exoralayer/exora/x/contracttoken/types AuthKeeper,BankKeeper,WasmKeeper
 
 func initFixture(t *testing.T) *fixture {
 	t.Helper()

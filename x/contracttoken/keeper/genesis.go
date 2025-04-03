@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

@@ -35,7 +35,7 @@ import (
 )
 
 const (
-	SimAppChainID = "gluon-simapp"
+	SimAppChainID = "exora-simapp"
 )
 
 var FlagEnableStreamingValue bool
@@ -135,7 +135,7 @@ func TestFullAppSimulation(t *testing.T) {
 	if !simcli.FlagSigverifyTxValue {
 		app.SetNotSigverifyTx()
 	}
-	require.Equal(t, "gluon", app.Name())
+	require.Equal(t, "exora", app.Name())
 
 	// run randomized simulation
 	_, simParams, simErr := simulation.SimulateFromSeed(

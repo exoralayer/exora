@@ -8,7 +8,7 @@ import (
 	modulev1 "cosmossdk.io/api/cosmos/bank/module/v1"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 
-	customkeeper "github.com/gluon-zone/gluon/x/bank/keeper"
+	customkeeper "github.com/exoralayer/exora/x/bank/keeper"
 )
 
 func init() {

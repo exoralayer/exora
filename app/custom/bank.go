@@ -18,7 +18,7 @@ func (cm CustomBankModule) DefaultGenesis() json.RawMessage {
 	genesis := banktypes.DefaultGenesisState()
 
 	metadata := banktypes.Metadata{
-		Description: "The native token of the Gluon network.",
+		Description: "The native token of the Exora network.",
 		DenomUnits: []*banktypes.DenomUnit{
 			{
 				Denom:    "uglu",
@@ -32,7 +32,7 @@ func (cm CustomBankModule) DefaultGenesis() json.RawMessage {
 		},
 		Base:    "uglu",
 		Display: "glu",
-		Name:    "Gluon GLU",
+		Name:    "Exora GLU",
 		Symbol:  "GLU",
 	}
 

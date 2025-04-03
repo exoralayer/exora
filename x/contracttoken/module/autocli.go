@@ -3,7 +3,7 @@ package contracttoken
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

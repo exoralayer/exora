@@ -8,7 +8,7 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	"github.com/gluon-zone/gluon/app/consts"
+	"github.com/exoralayer/exora/app/consts"
 )
 
 // initCometBFTConfig helps to override default CometBFT Config values.

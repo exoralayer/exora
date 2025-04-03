@@ -1,4 +1,4 @@
-# Gluon
+# Exora
 
-This is a.k.a. Gluon-VM.
-Gluon-ST is still [here](https://github.com/sunriselayer/gluon)
+This is a.k.a. Exora-VM.
+Exora-ST is still [here](https://github.com/sunriselayer/exora)

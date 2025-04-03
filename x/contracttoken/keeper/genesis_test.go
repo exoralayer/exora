@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/gluon-zone/gluon/testutil/nullify"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/testutil/nullify"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 
 	"github.com/stretchr/testify/require"
 )

@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 var _ types.QueryServer = queryServer{}

@@ -110,11 +110,11 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 		icaHostStack       porttypes.IBCModule = icahost.NewIBCModule(app.ICAHostKeeper)
 	)
 
-	// <gluon>
+	// <exora>
 	wasmStackIBCHandler := wasm.NewIBCHandler(app.WasmKeeper, app.IBCKeeper.ChannelKeeper, app.IBCKeeper.ChannelKeeper)
 	transferStack = ibccallbacks.NewIBCMiddleware(transferStack, app.IBCKeeper.ChannelKeeper, wasmStackIBCHandler, wasm.DefaultMaxIBCCallbackGas)
 	icaControllerStack = ibccallbacks.NewIBCMiddleware(icaControllerStack, app.IBCKeeper.ChannelKeeper, wasmStackIBCHandler, wasm.DefaultMaxIBCCallbackGas)
-	// </gluon>
+	// </exora>
 
 	// create static IBC router, add transfer route, then set it on the keeper
 	ibcRouter := porttypes.NewRouter().
@@ -126,11 +126,11 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 
 	app.IBCKeeper.SetRouter(ibcRouter)
 
-	// <gluon>
+	// <exora>
 	ibcRouterV2 := ibcapi.NewRouter().
 		AddRoute(ibctransfertypes.PortID, transferv2.NewIBCModule(app.TransferKeeper))
 	app.IBCKeeper.SetRouterV2(ibcRouterV2)
-	// </gluon>
+	// </exora>
 
 	storeProvider := app.IBCKeeper.ClientKeeper.GetStoreProvider()
 	tmLightClientModule := ibctm.NewLightClientModule(app.appCodec, storeProvider)

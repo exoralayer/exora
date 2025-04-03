@@ -40,6 +40,7 @@ import (
 	_ "github.com/cosmos/cosmos-sdk/x/auth/vesting" // import for side-effects
 	"github.com/cosmos/cosmos-sdk/x/authz"
 	_ "github.com/cosmos/cosmos-sdk/x/authz/module" // import for side-effects
+
 	// _ "github.com/cosmos/cosmos-sdk/x/bank"         // import for side-effects
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	_ "github.com/cosmos/cosmos-sdk/x/consensus" // import for side-effects
@@ -70,10 +71,10 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
-	_ "github.com/gluon-zone/gluon/x/bank/module" // import for side-effects
+	_ "github.com/exoralayer/exora/x/bank/module" // import for side-effects
 
-	_ "github.com/gluon-zone/gluon/x/contracttoken/module"
-	contracttokenmoduletypes "github.com/gluon-zone/gluon/x/contracttoken/types"
+	_ "github.com/exoralayer/exora/x/contracttoken/module"
+	contracttokenmoduletypes "github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 var (

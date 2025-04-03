@@ -56,17 +56,17 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/spf13/cast"
 
-	// "github.com/gluon-zone/gluon/wasmbinding"
+	// "github.com/exoralayer/exora/wasmbinding"
 
-	"github.com/gluon-zone/gluon/docs"
+	"github.com/exoralayer/exora/docs"
 
-	custombankkeeper "github.com/gluon-zone/gluon/x/bank/keeper"
-	contracttokenmodulekeeper "github.com/gluon-zone/gluon/x/contracttoken/keeper"
+	custombankkeeper "github.com/exoralayer/exora/x/bank/keeper"
+	contracttokenmodulekeeper "github.com/exoralayer/exora/x/contracttoken/keeper"
 )
 
 const (
-	AccountAddressPrefix = "gluon"
-	Name                 = "gluon"
+	AccountAddressPrefix = "exora"
+	Name                 = "exora"
 )
 
 // DefaultNodeHome default home directories for the application daemon
@@ -205,7 +205,7 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
-	// <gluon>
+	// <exora>
 	// Wasm
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	wasmDir := filepath.Join(homePath, "wasm")
@@ -262,7 +262,7 @@ func New(
 	); err != nil {
 		panic(err)
 	}
-	// <gluon />
+	// <exora />
 
 	// register legacy modules
 	if err := app.registerIBCModules(appOpts); err != nil {

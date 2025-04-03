@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/keeper"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 var _ depinject.OnePerModuleType = AppModule{}

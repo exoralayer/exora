@@ -1,4 +1,4 @@
-module github.com/gluon-zone/gluon
+module github.com/exoralayer/exora
 
 go 1.23.6
 

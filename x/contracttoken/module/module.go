@@ -13,8 +13,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/keeper"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 var (

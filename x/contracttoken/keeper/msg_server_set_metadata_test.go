@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/gluon-zone/gluon/x/contracttoken/keeper"
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/keeper"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 	"github.com/stretchr/testify/require"
 )
 

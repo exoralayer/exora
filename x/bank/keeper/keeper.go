@@ -9,7 +9,7 @@ import (
 
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	customtypes "github.com/gluon-zone/gluon/x/bank/types"
+	customtypes "github.com/exoralayer/exora/x/bank/types"
 )
 
 type Keeper struct {
@@ -30,7 +30,7 @@ func NewKeeper(
 	}
 }
 
-// <gluon>
+// <exora>
 // SendCoins transfers amt coins from a sending account to a receiving account.
 // An error is returned upon failure.
 func (k Keeper) SendCoins(ctx context.Context, fromAddr, toAddr sdk.AccAddress, amt sdk.Coins) error {
@@ -43,7 +43,7 @@ func (k Keeper) SendCoins(ctx context.Context, fromAddr, toAddr sdk.AccAddress, 
 	return k.BaseKeeper.SendCoins(ctx, fromAddr, toAddr, amt)
 }
 
-// </gluon>
+// </exora>
 
 // SendCoinsFromModuleToAccount transfers coins from a ModuleAccount to an AccAddress.
 // It will panic if the module account does not exist. An error is returned if

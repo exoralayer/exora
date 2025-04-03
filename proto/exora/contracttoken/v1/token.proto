@@ -1,7 +1,7 @@
 syntax = "proto3";
-package gluon.contracttoken.v1;
+package exora.contracttoken.v1;
 
-option go_package = "github.com/gluon-zone/gluon/x/contracttoken/types";
+option go_package = "github.com/exoralayer/exora/x/contracttoken/types";
 
 // Token
 message Token {

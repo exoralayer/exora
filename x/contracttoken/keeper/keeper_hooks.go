@@ -7,7 +7,7 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/gluon-zone/gluon/x/contracttoken/types"
+	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 func (k Keeper) BeforeSendHook(ctx context.Context, from sdk.AccAddress, to sdk.AccAddress, amount sdk.Coins) error {

@@ -1,24 +1,24 @@
 {
-  "id": "gluon",
+  "id": "exora",
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "swagger": "2.0",
   "info":
     {
-      "description": "Chain gluon REST API",
+      "description": "Chain exora REST API",
       "title": "HTTP API Console",
-      "contact": { "name": "gluon" },
+      "contact": { "name": "exora" },
       "version": "version not set",
     },
   "paths":
     {
-      "/gluon.contractmanager.v1.Msg/UpdateParams":
+      "/exora.contractmanager.v1.Msg/UpdateParams":
         {
           "post":
             {
               "tags": ["Msg"],
               "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
-              "operationId": "GluonMsg_UpdateParams",
+              "operationId": "ExoraMsg_UpdateParams",
               "parameters":
                 [
                   {
@@ -28,7 +28,7 @@
                     "required": true,
                     "schema":
                       {
-                        "$ref": "#/definitions/gluon.contractmanager.v1.MsgUpdateParams",
+                        "$ref": "#/definitions/exora.contractmanager.v1.MsgUpdateParams",
                       },
                   },
                 ],
@@ -39,7 +39,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.contractmanager.v1.MsgUpdateParamsResponse",
+                          "$ref": "#/definitions/exora.contractmanager.v1.MsgUpdateParamsResponse",
                         },
                     },
                   "default":
@@ -50,13 +50,13 @@
                 },
             },
         },
-      "/gluon.feerefunder.v1.Msg/UpdateParams":
+      "/exora.feerefunder.v1.Msg/UpdateParams":
         {
           "post":
             {
               "tags": ["Msg"],
               "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
-              "operationId": "GluonMsg_UpdateParamsMixin7",
+              "operationId": "ExoraMsg_UpdateParamsMixin7",
               "parameters":
                 [
                   {
@@ -66,7 +66,7 @@
                     "required": true,
                     "schema":
                       {
-                        "$ref": "#/definitions/gluon.feerefunder.v1.MsgUpdateParams",
+                        "$ref": "#/definitions/exora.feerefunder.v1.MsgUpdateParams",
                       },
                   },
                 ],
@@ -77,7 +77,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.feerefunder.v1.MsgUpdateParamsResponse",
+                          "$ref": "#/definitions/exora.feerefunder.v1.MsgUpdateParamsResponse",
                         },
                     },
                   "default":
@@ -88,13 +88,13 @@
                 },
             },
         },
-      "/gluon.interchaintxs.v1.Msg/UpdateParams":
+      "/exora.interchaintxs.v1.Msg/UpdateParams":
         {
           "post":
             {
               "tags": ["Msg"],
               "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
-              "operationId": "GluonMsg_UpdateParamsMixin12",
+              "operationId": "ExoraMsg_UpdateParamsMixin12",
               "parameters":
                 [
                   {
@@ -104,7 +104,7 @@
                     "required": true,
                     "schema":
                       {
-                        "$ref": "#/definitions/gluon.interchaintxs.v1.MsgUpdateParams",
+                        "$ref": "#/definitions/exora.interchaintxs.v1.MsgUpdateParams",
                       },
                   },
                 ],
@@ -115,7 +115,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.interchaintxs.v1.MsgUpdateParamsResponse",
+                          "$ref": "#/definitions/exora.interchaintxs.v1.MsgUpdateParamsResponse",
                         },
                     },
                   "default":
@@ -126,13 +126,13 @@
                 },
             },
         },
-      "/gluon.contracttoken.v1.Msg/UpdateParams":
+      "/exora.contracttoken.v1.Msg/UpdateParams":
         {
           "post":
             {
               "tags": ["Msg"],
               "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
-              "operationId": "GluonMsg_UpdateParamsMixin16",
+              "operationId": "ExoraMsg_UpdateParamsMixin16",
               "parameters":
                 [
                   {
@@ -142,7 +142,7 @@
                     "required": true,
                     "schema":
                       {
-                        "$ref": "#/definitions/gluon.contracttoken.v1.MsgUpdateParams",
+                        "$ref": "#/definitions/exora.contracttoken.v1.MsgUpdateParams",
                       },
                   },
                 ],
@@ -153,7 +153,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.contracttoken.v1.MsgUpdateParamsResponse",
+                          "$ref": "#/definitions/exora.contracttoken.v1.MsgUpdateParamsResponse",
                         },
                     },
                   "default":
@@ -164,13 +164,13 @@
                 },
             },
         },
-      "/gluon/contractmanager/v1/params":
+      "/exora/contractmanager/v1/params":
         {
           "get":
             {
               "tags": ["Query"],
               "summary": "Parameters queries the parameters of the module.",
-              "operationId": "GluonQuery_Params",
+              "operationId": "ExoraQuery_Params",
               "responses":
                 {
                   "200":
@@ -178,7 +178,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.contractmanager.v1.QueryParamsResponse",
+                          "$ref": "#/definitions/exora.contractmanager.v1.QueryParamsResponse",
                         },
                     },
                   "default":
@@ -189,13 +189,13 @@
                 },
             },
         },
-      "/gluon/feerefunder/v1/params":
+      "/exora/feerefunder/v1/params":
         {
           "get":
             {
               "tags": ["Query"],
               "summary": "Parameters queries the parameters of the module.",
-              "operationId": "GluonQuery_ParamsMixin6",
+              "operationId": "ExoraQuery_ParamsMixin6",
               "responses":
                 {
                   "200":
@@ -203,7 +203,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.feerefunder.v1.QueryParamsResponse",
+                          "$ref": "#/definitions/exora.feerefunder.v1.QueryParamsResponse",
                         },
                     },
                   "default":
@@ -214,13 +214,13 @@
                 },
             },
         },
-      "/gluon/interchaintxs/v1/params":
+      "/exora/interchaintxs/v1/params":
         {
           "get":
             {
               "tags": ["Query"],
               "summary": "Parameters queries the parameters of the module.",
-              "operationId": "GluonQuery_ParamsMixin11",
+              "operationId": "ExoraQuery_ParamsMixin11",
               "responses":
                 {
                   "200":
@@ -228,7 +228,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.interchaintxs.v1.QueryParamsResponse",
+                          "$ref": "#/definitions/exora.interchaintxs.v1.QueryParamsResponse",
                         },
                     },
                   "default":
@@ -239,13 +239,13 @@
                 },
             },
         },
-      "/gluon/contracttoken/v1/params":
+      "/exora/contracttoken/v1/params":
         {
           "get":
             {
               "tags": ["Query"],
               "summary": "Parameters queries the parameters of the module.",
-              "operationId": "GluonQuery_ParamsMixin15",
+              "operationId": "ExoraQuery_ParamsMixin15",
               "responses":
                 {
                   "200":
@@ -253,7 +253,7 @@
                       "description": "A successful response.",
                       "schema":
                         {
-                          "$ref": "#/definitions/gluon.contracttoken.v1.QueryParamsResponse",
+                          "$ref": "#/definitions/exora.contracttoken.v1.QueryParamsResponse",
                         },
                     },
                   "default":
@@ -267,7 +267,7 @@
     },
   "definitions":
     {
-      "gluon.contractmanager.v1.MsgUpdateParams":
+      "exora.contractmanager.v1.MsgUpdateParams":
         {
           "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
           "type": "object",
@@ -281,21 +281,21 @@
               "params":
                 {
                   "description": "params defines the module parameters to update.\n\nNOTE: All parameters must be supplied.",
-                  "$ref": "#/definitions/gluon.contractmanager.v1.Params",
+                  "$ref": "#/definitions/exora.contractmanager.v1.Params",
                 },
             },
         },
-      "gluon.contractmanager.v1.MsgUpdateParamsResponse":
+      "exora.contractmanager.v1.MsgUpdateParamsResponse":
         {
           "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message.",
           "type": "object",
         },
-      "gluon.contractmanager.v1.Params":
+      "exora.contractmanager.v1.Params":
         {
           "description": "Params defines the parameters for the module.",
           "type": "object",
         },
-      "gluon.contractmanager.v1.QueryParamsResponse":
+      "exora.contractmanager.v1.QueryParamsResponse":
         {
           "description": "QueryParamsResponse is response type for the Query/Params RPC method.",
           "type": "object",
@@ -304,11 +304,11 @@
               "params":
                 {
                   "description": "params holds all the parameters of this module.",
-                  "$ref": "#/definitions/gluon.contractmanager.v1.Params",
+                  "$ref": "#/definitions/exora.contractmanager.v1.Params",
                 },
             },
         },
-      "gluon.feerefunder.v1.MsgUpdateParams":
+      "exora.feerefunder.v1.MsgUpdateParams":
         {
           "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
           "type": "object",
@@ -322,21 +322,21 @@
               "params":
                 {
                   "description": "params defines the module parameters to update.\n\nNOTE: All parameters must be supplied.",
-                  "$ref": "#/definitions/gluon.feerefunder.v1.Params",
+                  "$ref": "#/definitions/exora.feerefunder.v1.Params",
                 },
             },
         },
-      "gluon.feerefunder.v1.MsgUpdateParamsResponse":
+      "exora.feerefunder.v1.MsgUpdateParamsResponse":
         {
           "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message.",
           "type": "object",
         },
-      "gluon.feerefunder.v1.Params":
+      "exora.feerefunder.v1.Params":
         {
           "description": "Params defines the parameters for the module.",
           "type": "object",
         },
-      "gluon.feerefunder.v1.QueryParamsResponse":
+      "exora.feerefunder.v1.QueryParamsResponse":
         {
           "description": "QueryParamsResponse is response type for the Query/Params RPC method.",
           "type": "object",
@@ -345,11 +345,11 @@
               "params":
                 {
                   "description": "params holds all the parameters of this module.",
-                  "$ref": "#/definitions/gluon.feerefunder.v1.Params",
+                  "$ref": "#/definitions/exora.feerefunder.v1.Params",
                 },
             },
         },
-      "gluon.interchaintxs.v1.MsgUpdateParams":
+      "exora.interchaintxs.v1.MsgUpdateParams":
         {
           "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
           "type": "object",
@@ -363,21 +363,21 @@
               "params":
                 {
                   "description": "params defines the module parameters to update.\n\nNOTE: All parameters must be supplied.",
-                  "$ref": "#/definitions/gluon.interchaintxs.v1.Params",
+                  "$ref": "#/definitions/exora.interchaintxs.v1.Params",
                 },
             },
         },
-      "gluon.interchaintxs.v1.MsgUpdateParamsResponse":
+      "exora.interchaintxs.v1.MsgUpdateParamsResponse":
         {
           "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message.",
           "type": "object",
         },
-      "gluon.interchaintxs.v1.Params":
+      "exora.interchaintxs.v1.Params":
         {
           "description": "Params defines the parameters for the module.",
           "type": "object",
         },
-      "gluon.interchaintxs.v1.QueryParamsResponse":
+      "exora.interchaintxs.v1.QueryParamsResponse":
         {
           "description": "QueryParamsResponse is response type for the Query/Params RPC method.",
           "type": "object",
@@ -386,11 +386,11 @@
               "params":
                 {
                   "description": "params holds all the parameters of this module.",
-                  "$ref": "#/definitions/gluon.interchaintxs.v1.Params",
+                  "$ref": "#/definitions/exora.interchaintxs.v1.Params",
                 },
             },
         },
-      "gluon.contracttoken.v1.MsgUpdateParams":
+      "exora.contracttoken.v1.MsgUpdateParams":
         {
           "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
           "type": "object",
@@ -404,21 +404,21 @@
               "params":
                 {
                   "description": "params defines the module parameters to update.\n\nNOTE: All parameters must be supplied.",
-                  "$ref": "#/definitions/gluon.contracttoken.v1.Params",
+                  "$ref": "#/definitions/exora.contracttoken.v1.Params",
                 },
             },
         },
-      "gluon.contracttoken.v1.MsgUpdateParamsResponse":
+      "exora.contracttoken.v1.MsgUpdateParamsResponse":
         {
           "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message.",
           "type": "object",
         },
-      "gluon.contracttoken.v1.Params":
+      "exora.contracttoken.v1.Params":
         {
           "description": "Params defines the parameters for the module.",
           "type": "object",
         },
-      "gluon.contracttoken.v1.QueryParamsResponse":
+      "exora.contracttoken.v1.QueryParamsResponse":
         {
           "description": "QueryParamsResponse is response type for the Query/Params RPC method.",
           "type": "object",
@@ -427,7 +427,7 @@
               "params":
                 {
                   "description": "params holds all the parameters of this module.",
-                  "$ref": "#/definitions/gluon.contracttoken.v1.Params",
+                  "$ref": "#/definitions/exora.contracttoken.v1.Params",
                 },
             },
         },
