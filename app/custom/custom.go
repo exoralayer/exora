@@ -21,16 +21,16 @@ func ReplaceCustomModules(
 	sdk.DefaultBondDenom = consts.Denom
 
 	// bank
-	oldBankModule, _ := manager[banktypes.ModuleName].(bank.AppModule)
+	oldBankModule, _ := manager[banktypes.ModuleName].(bank.AppModuleBasic)
 	manager[banktypes.ModuleName] = CustomBankModule{
-		AppModule: oldBankModule,
-		cdc:       cdc,
+		AppModuleBasic: oldBankModule,
+		cdc:            cdc,
 	}
 
 	// wasm
-	oldWasmModule, _ := manager[wasmtypes.ModuleName].(wasm.AppModule)
+	oldWasmModule, _ := manager[wasmtypes.ModuleName].(wasm.AppModuleBasic)
 	manager[wasmtypes.ModuleName] = CustomWasmModule{
-		AppModule: oldWasmModule,
-		cdc:       cdc,
+		AppModuleBasic: oldWasmModule,
+		cdc:            cdc,
 	}
 }

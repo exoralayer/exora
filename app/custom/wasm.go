@@ -10,7 +10,7 @@ import (
 )
 
 type CustomWasmModule struct {
-	wasm.AppModule
+	wasm.AppModuleBasic
 	cdc codec.Codec
 }
 

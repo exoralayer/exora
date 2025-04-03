@@ -10,7 +10,7 @@ import (
 )
 
 type CustomBankModule struct {
-	bank.AppModule
+	bank.AppModuleBasic
 	cdc codec.Codec
 }
 
