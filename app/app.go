@@ -92,7 +92,7 @@ type App struct {
 	// the list of all modules is available in the app_config
 	AuthKeeper authkeeper.AccountKeeper
 	// BankKeeper            bankkeeper.Keeper
-	BankKeeper            *custombankkeeper.Keeper
+	BankKeeper            custombankkeeper.Keeper
 	StakingKeeper         *stakingkeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 	MintKeeper            mintkeeper.Keeper
@@ -106,14 +106,14 @@ type App struct {
 	ParamsKeeper          paramskeeper.Keeper
 
 	// ibc keepers
-	IBCKeeper           *ibckeeper.Keeper
+	IBCKeeper           ibckeeper.Keeper
 	ICAControllerKeeper icacontrollerkeeper.Keeper
 	ICAHostKeeper       icahostkeeper.Keeper
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	WasmKeeper wasmkeeper.Keeper
 
-	ContractTokenKeeper *contracttokenmodulekeeper.Keeper
+	ContractTokenKeeper contracttokenmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -205,6 +205,18 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
+	// Register wasm's StoreKey
+	if err := app.RegisterStores(
+		storetypes.NewKVStoreKey(wasmtypes.StoreKey),
+	); err != nil {
+		panic(err)
+	}
+
+	// Register IBC modules manually
+	if err := app.registerIBCModules(appOpts); err != nil {
+		panic(err)
+	}
+
 	// <exora>
 	// Wasm
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
@@ -245,7 +257,7 @@ func New(
 				FeegrantKeeper:  app.FeegrantKeeper,
 				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
 			},
-			IBCKeeper:             app.IBCKeeper,
+			IBCKeeper:             &app.IBCKeeper,
 			NodeConfig:            &nodeConfig,
 			WasmKeeper:            &app.WasmKeeper,
 			TXCounterStoreService: runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
@@ -263,11 +275,6 @@ func New(
 		panic(err)
 	}
 	// <exora />
-
-	// register legacy modules
-	if err := app.registerIBCModules(appOpts); err != nil {
-		panic(err)
-	}
 
 	/****  Module Options ****/
 	app.BankKeeper.BeforeSendHooks = append(app.BankKeeper.BeforeSendHooks, app.ContractTokenKeeper.BeforeSendHook)
