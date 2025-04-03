@@ -59,7 +59,7 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	govModuleAddr, _ := app.AuthKeeper.AddressCodec().BytesToString(authtypes.NewModuleAddress(govtypes.ModuleName))
 
 	// Create IBC keeper
-	app.IBCKeeper = ibckeeper.NewKeeper(
+	app.IBCKeeper = *ibckeeper.NewKeeper(
 		app.appCodec,
 		runtime.NewKVStoreService(app.GetKey(ibcexported.StoreKey)),
 		app.GetSubspace(ibcexported.ModuleName),
@@ -138,7 +138,7 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 
 	// register IBC modules
 	if err := app.RegisterModules(
-		ibc.NewAppModule(app.IBCKeeper),
+		ibc.NewAppModule(&app.IBCKeeper),
 		ibctransfer.NewAppModule(app.TransferKeeper),
 		icamodule.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper),
 		ibctm.NewAppModule(tmLightClientModule),

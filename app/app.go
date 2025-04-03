@@ -106,7 +106,7 @@ type App struct {
 	ParamsKeeper          paramskeeper.Keeper
 
 	// ibc keepers
-	IBCKeeper           *ibckeeper.Keeper
+	IBCKeeper           ibckeeper.Keeper
 	ICAControllerKeeper icacontrollerkeeper.Keeper
 	ICAHostKeeper       icahostkeeper.Keeper
 	TransferKeeper      ibctransferkeeper.Keeper
@@ -249,7 +249,7 @@ func New(
 				FeegrantKeeper:  app.FeegrantKeeper,
 				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
 			},
-			IBCKeeper:             app.IBCKeeper,
+			IBCKeeper:             &app.IBCKeeper,
 			NodeConfig:            &nodeConfig,
 			WasmKeeper:            &app.WasmKeeper,
 			TXCounterStoreService: runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
