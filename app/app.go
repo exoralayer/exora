@@ -92,7 +92,7 @@ type App struct {
 	// the list of all modules is available in the app_config
 	AuthKeeper authkeeper.AccountKeeper
 	// BankKeeper            bankkeeper.Keeper
-	BankKeeper            *custombankkeeper.Keeper
+	BankKeeper            custombankkeeper.Keeper
 	StakingKeeper         *stakingkeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 	MintKeeper            mintkeeper.Keeper
@@ -113,7 +113,7 @@ type App struct {
 
 	WasmKeeper wasmkeeper.Keeper
 
-	ContractTokenKeeper *contracttokenmodulekeeper.Keeper
+	ContractTokenKeeper contracttokenmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
