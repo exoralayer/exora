@@ -194,6 +194,10 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
 		&app.ContractTokenKeeper,
+		&app.IBCKeeper,
+		&app.ICAControllerKeeper,
+		&app.ICAHostKeeper,
+		&app.TransferKeeper,
 	); err != nil {
 		panic(err)
 	}
