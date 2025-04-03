@@ -198,17 +198,17 @@ func New(
 		panic(err)
 	}
 
-	// register IBC modules before building the app
-	if err := app.registerIBCModules(appOpts); err != nil {
-		panic(err)
-	}
-
 	// add to default baseapp options
 	// enable optimistic execution
 	baseAppOptions = append(baseAppOptions, baseapp.SetOptimisticExecution())
 
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
+
+	// IBCを手動で登録
+	if err := app.registerIBCModules(appOpts); err != nil {
+		panic(err)
+	}
 
 	// <exora>
 	// Wasm
