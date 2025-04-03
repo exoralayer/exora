@@ -194,11 +194,12 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
 		&app.ContractTokenKeeper,
-		&app.IBCKeeper,
-		&app.ICAControllerKeeper,
-		&app.ICAHostKeeper,
-		&app.TransferKeeper,
 	); err != nil {
+		panic(err)
+	}
+
+	// register IBC modules before building the app
+	if err := app.registerIBCModules(appOpts); err != nil {
 		panic(err)
 	}
 
@@ -267,11 +268,6 @@ func New(
 		panic(err)
 	}
 	// <exora />
-
-	// register legacy modules
-	if err := app.registerIBCModules(appOpts); err != nil {
-		panic(err)
-	}
 
 	/****  Module Options ****/
 	app.BankKeeper.BeforeSendHooks = append(app.BankKeeper.BeforeSendHooks, app.ContractTokenKeeper.BeforeSendHook)
