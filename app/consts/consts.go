@@ -1,7 +1,7 @@
 package consts
 
 const (
-	Denom = "uglu"
+	Denom = "uxora"
 
 	DefaultMinGasPrice = 0.002
 )

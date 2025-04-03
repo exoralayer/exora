@@ -21,19 +21,19 @@ func (cm CustomBankModule) DefaultGenesis() json.RawMessage {
 		Description: "The native token of the Exora network.",
 		DenomUnits: []*banktypes.DenomUnit{
 			{
-				Denom:    "uglu",
+				Denom:    "uxora",
 				Exponent: 0,
-				Aliases:  []string{"microglu"},
+				Aliases:  []string{"microxora"},
 			},
 			{
-				Denom:    "glu",
+				Denom:    "xora",
 				Exponent: 6,
 			},
 		},
-		Base:    "uglu",
-		Display: "glu",
-		Name:    "Exora GLU",
-		Symbol:  "GLU",
+		Base:    "uxora",
+		Display: "xora",
+		Name:    "Exora XORA",
+		Symbol:  "XORA",
 	}
 
 	genesis.DenomMetadata = append(genesis.DenomMetadata, metadata)
