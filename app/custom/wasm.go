@@ -9,17 +9,11 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 )
 
-// CustomWasmModule は wasm.AppModuleBasic をラップし、
-// DefaultGenesis をオーバーライドしてカスタムパラメータを設定します。
 type CustomWasmModule struct {
-	wasm.AppModuleBasic // wasm.AppModuleBasic を埋め込む
-	// cdc codec.Codec // <- このフィールドは不要
+	wasm.AppModuleBasic
 }
 
-// DefaultGenesis は module.AppModuleBasic インターフェースを実装します。
-// ジェネシス状態を生成し、カスタムパラメータを設定します。
-// cdc は引数として渡されます。
-func (cm CustomWasmModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage { // ★ 引数で cdc codec.JSONCodec を受け取るように変更
+func (cm CustomWasmModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genesis := &wasmtypes.GenesisState{
 		Params: wasmtypes.DefaultParams(),
 	}
@@ -27,6 +21,5 @@ func (cm CustomWasmModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genesis.Params.CodeUploadAccess = wasmtypes.AllowEverybody
 	genesis.Params.InstantiateDefaultPermission = wasmtypes.AccessTypeEverybody
 
-	// 引数で受け取った cdc を使用してマーシャリング
-	return cdc.MustMarshalJSON(genesis) // ★ 引数の cdc を使用
+	return cdc.MustMarshalJSON(genesis)
 }
