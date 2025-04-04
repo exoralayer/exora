@@ -58,6 +58,7 @@ import (
 
 	// "github.com/exoralayer/exora/wasmbinding"
 
+	"github.com/exoralayer/exora/app/custom"
 	"github.com/exoralayer/exora/docs"
 
 	custombankkeeper "github.com/exoralayer/exora/x/bank/keeper"
@@ -137,6 +138,7 @@ func AppConfig() depinject.Config {
 			// supply custom module basics
 			map[string]module.AppModuleBasic{
 				genutiltypes.ModuleName: genutil.NewAppModuleBasic(genutiltypes.DefaultMessageValidator),
+				wasmtypes.ModuleName:    custom.CustomWasmModule{},
 			},
 		),
 	)

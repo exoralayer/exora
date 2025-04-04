@@ -31,6 +31,5 @@ func ReplaceCustomModules(
 	oldWasmModule, _ := manager[wasmtypes.ModuleName].(wasm.AppModuleBasic)
 	manager[wasmtypes.ModuleName] = CustomWasmModule{
 		AppModuleBasic: oldWasmModule,
-		cdc:            cdc,
 	}
 }
