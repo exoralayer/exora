@@ -87,7 +87,7 @@ func NewRootCmd() *cobra.Command {
 		autoCliOpts.Modules[name] = mod
 	}
 	// <exora>
-	custom.ReplaceCustomModules(moduleBasicManager, appCodec)
+	custom.ReplaceCustomModules(moduleBasicManager)
 	// </exora>
 
 	initRootCmd(rootCmd, clientCtx.TxConfig, moduleBasicManager)

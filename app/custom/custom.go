@@ -1,7 +1,6 @@
 package custom
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
@@ -16,7 +15,6 @@ import (
 
 func ReplaceCustomModules(
 	manager module.BasicManager,
-	cdc codec.Codec,
 ) {
 	sdk.DefaultBondDenom = consts.Denom
 
@@ -24,13 +22,11 @@ func ReplaceCustomModules(
 	oldBankModule, _ := manager[banktypes.ModuleName].(bank.AppModuleBasic)
 	manager[banktypes.ModuleName] = CustomBankModule{
 		AppModuleBasic: oldBankModule,
-		cdc:            cdc,
 	}
 
 	// wasm
 	oldWasmModule, _ := manager[wasmtypes.ModuleName].(wasm.AppModuleBasic)
 	manager[wasmtypes.ModuleName] = CustomWasmModule{
 		AppModuleBasic: oldWasmModule,
-		cdc:            cdc,
 	}
 }
