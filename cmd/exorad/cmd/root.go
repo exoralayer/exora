@@ -8,6 +8,7 @@ import (
 	"cosmossdk.io/client/v2/autocli"
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -87,6 +88,7 @@ func NewRootCmd() *cobra.Command {
 		autoCliOpts.Modules[name] = mod
 	}
 	// <exora>
+	wasmtypes.RegisterInterfaces(clientCtx.InterfaceRegistry)
 	custom.ReplaceCustomModules(moduleBasicManager)
 	// </exora>
 
