@@ -35,6 +35,7 @@ import (
 	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 )
 
 func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
@@ -120,7 +121,10 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	ibcRouter := porttypes.NewRouter().
 		AddRoute(ibctransfertypes.ModuleName, transferStack).
 		AddRoute(icacontrollertypes.SubModuleName, icaControllerStack).
-		AddRoute(icahosttypes.SubModuleName, icaHostStack)
+		AddRoute(icahosttypes.SubModuleName, icaHostStack).
+		// <exora>
+		AddRoute(wasmtypes.ModuleName, wasm.NewIBCHandler(app.WasmKeeper, app.IBCKeeper.ChannelKeeper, app.IBCKeeper.ChannelKeeper))
+		// </exora>
 
 	// this line is used by starport scaffolding # ibc/app/module
 
