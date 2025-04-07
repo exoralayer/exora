@@ -132,17 +132,25 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	app.IBCKeeper.SetRouterV2(ibcRouterV2)
 	// </exora>
 
+	clientKeeper := app.IBCKeeper.ClientKeeper
 	storeProvider := app.IBCKeeper.ClientKeeper.GetStoreProvider()
+
 	tmLightClientModule := ibctm.NewLightClientModule(app.appCodec, storeProvider)
-	soloLightClientModule := solomachine.NewLightClientModule(app.appCodec, storeProvider)
+	clientKeeper.AddRoute(ibctm.ModuleName, &tmLightClientModule)
+
+	smLightClientModule := solomachine.NewLightClientModule(app.appCodec, storeProvider)
+	clientKeeper.AddRoute(solomachine.ModuleName, &smLightClientModule)
 
 	// register IBC modules
 	if err := app.RegisterModules(
+		// IBC modules
 		ibc.NewAppModule(&app.IBCKeeper),
 		ibctransfer.NewAppModule(app.TransferKeeper),
 		icamodule.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper),
+
+		// IBC light clients
 		ibctm.NewAppModule(tmLightClientModule),
-		solomachine.NewAppModule(soloLightClientModule),
+		solomachine.NewAppModule(smLightClientModule),
 	); err != nil {
 		return err
 	}
