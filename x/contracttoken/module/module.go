@@ -81,14 +81,14 @@ func (am AppModule) RegisterServices(registrar grpc.ServiceRegistrar) error {
 
 // DefaultGenesis returns a default GenesisState for the module, marshalled to json.RawMessage.
 // The default GenesisState need to be defined by the module developer and is primarily used for testing.
-func (am AppModule) DefaultGenesis() json.RawMessage {
-	return am.cdc.MustMarshalJSON(types.DefaultGenesis())
+func (am AppModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
+	return cdc.MustMarshalJSON(types.DefaultGenesis())
 }
 
 // ValidateGenesis used to validate the GenesisState, given in its json.RawMessage form.
-func (am AppModule) ValidateGenesis(bz json.RawMessage) error {
+func (am AppModule) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncodingConfig, bz json.RawMessage) error {
 	var genState types.GenesisState
-	if err := am.cdc.UnmarshalJSON(bz, &genState); err != nil {
+	if err := cdc.UnmarshalJSON(bz, &genState); err != nil {
 		return fmt.Errorf("failed to unmarshal %s genesis state: %w", types.ModuleName, err)
 	}
 
@@ -96,10 +96,10 @@ func (am AppModule) ValidateGenesis(bz json.RawMessage) error {
 }
 
 // InitGenesis performs the module's genesis initialization. It returns no validator updates.
-func (am AppModule) InitGenesis(ctx context.Context, gs json.RawMessage) error {
+func (am AppModule) InitGenesis(ctx context.Context, cdc codec.JSONCodec, gs json.RawMessage) error {
 	var genState types.GenesisState
 	// Initialize global index to index in genesis state
-	if err := am.cdc.UnmarshalJSON(gs, &genState); err != nil {
+	if err := cdc.UnmarshalJSON(gs, &genState); err != nil {
 		return fmt.Errorf("failed to unmarshal %s genesis state: %w", types.ModuleName, err)
 	}
 
@@ -107,13 +107,13 @@ func (am AppModule) InitGenesis(ctx context.Context, gs json.RawMessage) error {
 }
 
 // ExportGenesis returns the module's exported genesis state as raw JSON bytes.
-func (am AppModule) ExportGenesis(ctx context.Context) (json.RawMessage, error) {
+func (am AppModule) ExportGenesis(ctx context.Context, cdc codec.JSONCodec) (json.RawMessage, error) {
 	genState, err := am.keeper.ExportGenesis(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return am.cdc.MarshalJSON(genState)
+	return cdc.MarshalJSON(genState)
 }
 
 // ConsensusVersion is a sequence number for state-breaking change of the module.

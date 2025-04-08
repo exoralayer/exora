@@ -7,13 +7,15 @@ import (
 )
 
 // NewParams creates a new Params instance.
-func NewParams() Params {
-	return Params{}
+func NewParams(tokenCreationGas uint64) Params {
+	return Params{
+		TokenCreationGas: tokenCreationGas,
+	}
 }
 
 // DefaultParams returns a default set of parameters.
 func DefaultParams() Params {
-	return NewParams()
+	return NewParams(0)
 }
 
 // Validate validates the set of params.
