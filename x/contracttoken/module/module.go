@@ -9,6 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
@@ -96,7 +97,7 @@ func (am AppModule) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncodin
 }
 
 // InitGenesis performs the module's genesis initialization. It returns no validator updates.
-func (am AppModule) InitGenesis(ctx context.Context, cdc codec.JSONCodec, gs json.RawMessage) error {
+func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, gs json.RawMessage) error {
 	var genState types.GenesisState
 	// Initialize global index to index in genesis state
 	if err := cdc.UnmarshalJSON(gs, &genState); err != nil {
@@ -107,7 +108,7 @@ func (am AppModule) InitGenesis(ctx context.Context, cdc codec.JSONCodec, gs jso
 }
 
 // ExportGenesis returns the module's exported genesis state as raw JSON bytes.
-func (am AppModule) ExportGenesis(ctx context.Context, cdc codec.JSONCodec) (json.RawMessage, error) {
+func (am AppModule) ExportGenesis(ctx sdk.Context, cdc codec.JSONCodec) (json.RawMessage, error) {
 	genState, err := am.keeper.ExportGenesis(ctx)
 	if err != nil {
 		return nil, err
