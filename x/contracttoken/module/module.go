@@ -104,12 +104,12 @@ func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, gs json.Ra
 		return fmt.Errorf("failed to unmarshal %s genesis state: %w", types.ModuleName, err)
 	}
 
-	return am.keeper.InitGenesis(ctx, genState)
+	return am.keeper.InitGenesis(ctx.Context(), genState)
 }
 
 // ExportGenesis returns the module's exported genesis state as raw JSON bytes.
 func (am AppModule) ExportGenesis(ctx sdk.Context, cdc codec.JSONCodec) (json.RawMessage, error) {
-	genState, err := am.keeper.ExportGenesis(ctx)
+	genState, err := am.keeper.ExportGenesis(ctx.Context())
 	if err != nil {
 		return nil, err
 	}
