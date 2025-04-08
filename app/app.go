@@ -54,6 +54,7 @@ import (
 
 	custombankkeeper "github.com/exoralayer/exora/x/bank/keeper"
 	contracttokenmodulekeeper "github.com/exoralayer/exora/x/contracttoken/keeper"
+	contracttokenmoduletypes "github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 const (
@@ -208,6 +209,15 @@ func New(
 	if err := app.registerIBCModules(appOpts, wasmOpts); err != nil {
 		panic(err)
 	}
+
+	// <exora>
+	// Register contracttoken's StoreKey
+	if err := app.RegisterStores(
+		storetypes.NewKVStoreKey(contracttokenmoduletypes.StoreKey),
+	); err != nil {
+		panic(err)
+	}
+	// </exora>
 
 	/****  Module Options ****/
 	app.BankKeeper.BeforeSendHooks = append(app.BankKeeper.BeforeSendHooks, app.ContractTokenKeeper.BeforeSendHook)
