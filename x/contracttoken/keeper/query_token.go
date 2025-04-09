@@ -25,7 +25,7 @@ func (q queryServer) Token(ctx context.Context, req *types.QueryTokenRequest) (*
 	if err != nil {
 		return nil, err
 	}
-	return &types.QueryTokenResponse{Token: &token}, nil
+	return &types.QueryTokenResponse{Token: token}, nil
 }
 
 func (q queryServer) Tokens(ctx context.Context, req *types.QueryTokensRequest) (*types.QueryTokensResponse, error) {
@@ -46,10 +46,5 @@ func (q queryServer) Tokens(ctx context.Context, req *types.QueryTokensRequest) 
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	tokenPointers := make([]*types.Token, len(tokens))
-	for i, token := range tokens {
-		tokenPointers[i] = &token
-	}
-
-	return &types.QueryTokensResponse{Tokens: tokenPointers, Pagination: pageRes}, nil
+	return &types.QueryTokensResponse{Tokens: tokens, Pagination: pageRes}, nil
 }
