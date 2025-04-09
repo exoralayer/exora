@@ -15,7 +15,7 @@ func NewParams(tokenCreationGas uint64) Params {
 
 // DefaultParams returns a default set of parameters.
 func DefaultParams() Params {
-	return NewParams(0)
+	return NewParams(10000)
 }
 
 // Validate validates the set of params.
