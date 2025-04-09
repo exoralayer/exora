@@ -4,12 +4,13 @@ import (
 	"context"
 
 	errorsmod "cosmossdk.io/errors"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 func (m msgServer) UpdateToken(ctx context.Context, msg *types.MsgUpdateToken) (*types.MsgUpdateTokenResponse, error) {
-	contractAddr, err := m.addressCodec.StringToBytes(msg.ContractAddress)
+	contractAddr, err := sdk.AccAddressFromBech32(msg.ContractAddress)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "invalid contract address")
 	}

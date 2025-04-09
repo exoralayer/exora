@@ -42,7 +42,7 @@ message QueryTokenRequest {
 
 // QueryTokenResponse
 message QueryTokenResponse {
-  Token token = 1;
+  Token token = 1 [(gogoproto.nullable) = false];
 }
 
 // QueryTokensRequest
@@ -52,6 +52,6 @@ message QueryTokensRequest {
 
 // QueryTokensResponse
 message QueryTokensResponse {
-  repeated Token tokens = 1;
+  repeated Token tokens = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

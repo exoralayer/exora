@@ -1,6 +1,7 @@
 syntax = "proto3";
 package exora.contracttoken.v1;
 
+import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 
 option go_package = "github.com/exoralayer/exora/x/contracttoken/types";
@@ -13,5 +14,5 @@ message Params {
   // This is intended as a spam deterrence mechanism.
   //
   // See: https://github.com/CosmWasm/token-factory/issues/11
-  uint64 token_creation_gas = 1;
+  uint64 token_creation_gas = 1 [(amino.dont_omitempty) = true];;
 }

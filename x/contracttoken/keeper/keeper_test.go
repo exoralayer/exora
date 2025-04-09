@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"cosmossdk.io/core/address"
+	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 	addresscodec "github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/runtime"
@@ -50,10 +51,10 @@ func initFixture(t *testing.T) *fixture {
 	mockWasm := contracttokentestutil.NewMockWasmKeeper(ctrl)
 
 	k := keeper.NewKeeper(
-		storeService,
 		encCfg.Codec,
-		addressCodec,
-		authority,
+		storeService,
+		log.NewNopLogger(),
+		authority.String(),
 		mockAuth,
 		mockBank,
 		mockWasm,

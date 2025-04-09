@@ -4,20 +4,21 @@ import (
 	"fmt"
 
 	"cosmossdk.io/collections"
-	"cosmossdk.io/core/address"
-	corestore "cosmossdk.io/core/store"
+	"cosmossdk.io/core/store"
+	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/exoralayer/exora/x/contracttoken/types"
 )
 
 type Keeper struct {
-	storeService corestore.KVStoreService
 	cdc          codec.Codec
-	addressCodec address.Codec
-	// Address capable of executing a MsgUpdateParams message.
-	// Typically, this should be the x/gov module account.
-	authority []byte
+	storeService store.KVStoreService
+	logger       log.Logger
+
+	// the address capable of executing a MsgUpdateParams message. Typically, this
+	// should be the x/gov module account.
+	authority string
 
 	Schema collections.Schema
 	Params collections.Item[types.Params]
@@ -30,24 +31,24 @@ type Keeper struct {
 }
 
 func NewKeeper(
-	storeService corestore.KVStoreService,
 	cdc codec.Codec,
-	addressCodec address.Codec,
-	authority []byte,
+	storeService store.KVStoreService,
+	logger log.Logger,
+	authority string,
+
 	authKeeper types.AuthKeeper,
 	bankKeeper types.BankKeeper,
 	wasmKeeper types.WasmKeeper,
 ) Keeper {
-	if _, err := addressCodec.BytesToString(authority); err != nil {
-		panic(fmt.Sprintf("invalid authority address %s: %s", authority, err))
+	if _, err := sdk.AccAddressFromBech32(authority); err != nil {
+		panic(fmt.Sprintf("invalid authority address: %s", authority))
 	}
 
 	sb := collections.NewSchemaBuilder(storeService)
 
 	k := Keeper{
-		storeService: storeService,
 		cdc:          cdc,
-		addressCodec: addressCodec,
+		storeService: storeService,
 		authority:    authority,
 
 		Params: collections.NewItem(sb, types.ParamsKey, "params", codec.CollValue[types.Params](cdc)),
@@ -69,6 +70,11 @@ func NewKeeper(
 }
 
 // GetAuthority returns the module's authority.
-func (k Keeper) GetAuthority() []byte {
+func (k Keeper) GetAuthority() string {
 	return k.authority
+}
+
+// Logger returns a module-specific logger.
+func (k Keeper) Logger() log.Logger {
+	return k.logger.With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }

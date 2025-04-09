@@ -22,7 +22,7 @@ func (k Keeper) GetToken(ctx context.Context, contract sdk.AccAddress) (types.To
 }
 
 func (k Keeper) SetToken(ctx context.Context, token types.Token) error {
-	contract, err := k.addressCodec.StringToBytes(token.ContractAddress)
+	contract, err := sdk.AccAddressFromBech32(token.ContractAddress)
 	if err != nil {
 		return err
 	}
