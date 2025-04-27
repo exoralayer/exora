@@ -10,7 +10,7 @@ import (
 )
 
 func (m msgServer) Burn(ctx context.Context, msg *types.MsgBurn) (*types.MsgBurnResponse, error) {
-	contractAddr, err := m.addressCodec.StringToBytes(msg.ContractAddress)
+	contractAddr, err := sdk.AccAddressFromBech32(msg.ContractAddress)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "invalid contract address")
 	}
