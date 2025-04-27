@@ -11,10 +11,9 @@ import (
 
 type CustomWasmModule struct {
 	wasm.AppModuleBasic
-	cdc codec.Codec
 }
 
-func (cm CustomWasmModule) DefaultGenesis() json.RawMessage {
+func (cm CustomWasmModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genesis := &wasmtypes.GenesisState{
 		Params: wasmtypes.DefaultParams(),
 	}
@@ -22,5 +21,5 @@ func (cm CustomWasmModule) DefaultGenesis() json.RawMessage {
 	genesis.Params.CodeUploadAccess = wasmtypes.AllowEverybody
 	genesis.Params.InstantiateDefaultPermission = wasmtypes.AccessTypeEverybody
 
-	return cm.cdc.MustMarshalJSON(genesis)
+	return cdc.MustMarshalJSON(genesis)
 }

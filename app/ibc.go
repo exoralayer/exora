@@ -1,14 +1,20 @@
 package app
 
 import (
+	"fmt"
+	"path/filepath"
+
 	"cosmossdk.io/core/appmodule"
 	storetypes "cosmossdk.io/store/types"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	icamodule "github.com/cosmos/ibc-go/v10/modules/apps/27-interchain-accounts"
 	icacontroller "github.com/cosmos/ibc-go/v10/modules/apps/27-interchain-accounts/controller"
@@ -35,9 +41,12 @@ import (
 	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/spf13/cast"
 )
 
-func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
+func (app *App) registerIBCModules(appOpts servertypes.AppOptions, wasmOpts []wasmkeeper.Option) error {
 	// set up non depinject support modules store keys
 	if err := app.RegisterStores(
 		storetypes.NewKVStoreKey(ibcexported.StoreKey),
@@ -59,7 +68,7 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	govModuleAddr, _ := app.AuthKeeper.AddressCodec().BytesToString(authtypes.NewModuleAddress(govtypes.ModuleName))
 
 	// Create IBC keeper
-	app.IBCKeeper = ibckeeper.NewKeeper(
+	app.IBCKeeper = *ibckeeper.NewKeeper(
 		app.appCodec,
 		runtime.NewKVStoreService(app.GetKey(ibcexported.StoreKey)),
 		app.GetSubspace(ibcexported.ModuleName),
@@ -103,6 +112,58 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 		govModuleAddr,
 	)
 
+	// <exora>
+	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
+	wasmDir := filepath.Join(homePath, "wasm")
+	nodeConfig, err := wasm.ReadNodeConfig(appOpts)
+	if err != nil {
+		panic(fmt.Sprintf("error while reading wasm config: %s", err))
+	}
+
+	// The last arguments can contain custom message handlers, and custom query handlers,
+	// if we want to allow any custom callbacks
+	app.WasmKeeper = wasmkeeper.NewKeeper(
+		app.appCodec,
+		runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
+		app.AuthKeeper,
+		app.BankKeeper,
+		app.StakingKeeper,
+		distrkeeper.NewQuerier(app.DistrKeeper),
+		app.IBCKeeper.ChannelKeeper,
+		app.IBCKeeper.ChannelKeeper,
+		app.TransferKeeper,
+		app.MsgServiceRouter(),
+		app.GRPCQueryRouter(),
+		wasmDir,
+		nodeConfig,
+		wasmtypes.VMConfig{},
+		wasmkeeper.BuiltInCapabilities(),
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		wasmOpts...,
+	)
+
+	anteHandler, err := NewAnteHandler(
+		HandlerOptions{
+			HandlerOptions: ante.HandlerOptions{
+				AccountKeeper:   app.AuthKeeper,
+				BankKeeper:      app.BankKeeper,
+				SignModeHandler: app.txConfig.SignModeHandler(),
+				FeegrantKeeper:  app.FeegrantKeeper,
+				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
+			},
+			IBCKeeper:             &app.IBCKeeper,
+			NodeConfig:            &nodeConfig,
+			WasmKeeper:            &app.WasmKeeper,
+			TXCounterStoreService: runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
+			CircuitKeeper:         &app.CircuitBreakerKeeper,
+		},
+	)
+	if err != nil {
+		panic(fmt.Errorf("failed to create AnteHandler: %s", err))
+	}
+	app.SetAnteHandler(anteHandler)
+	// </exora>
+
 	// create IBC module from bottom to top of stack
 	var (
 		transferStack      porttypes.IBCModule = ibctransfer.NewIBCModule(app.TransferKeeper)
@@ -120,7 +181,10 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	ibcRouter := porttypes.NewRouter().
 		AddRoute(ibctransfertypes.ModuleName, transferStack).
 		AddRoute(icacontrollertypes.SubModuleName, icaControllerStack).
-		AddRoute(icahosttypes.SubModuleName, icaHostStack)
+		AddRoute(icahosttypes.SubModuleName, icaHostStack).
+		// <exora>
+		AddRoute(wasmtypes.ModuleName, wasm.NewIBCHandler(app.WasmKeeper, app.IBCKeeper.ChannelKeeper, app.IBCKeeper.ChannelKeeper))
+		// </exora>
 
 	// this line is used by starport scaffolding # ibc/app/module
 
@@ -132,17 +196,30 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 	app.IBCKeeper.SetRouterV2(ibcRouterV2)
 	// </exora>
 
+	clientKeeper := app.IBCKeeper.ClientKeeper
 	storeProvider := app.IBCKeeper.ClientKeeper.GetStoreProvider()
+
 	tmLightClientModule := ibctm.NewLightClientModule(app.appCodec, storeProvider)
-	soloLightClientModule := solomachine.NewLightClientModule(app.appCodec, storeProvider)
+	clientKeeper.AddRoute(ibctm.ModuleName, &tmLightClientModule)
+
+	smLightClientModule := solomachine.NewLightClientModule(app.appCodec, storeProvider)
+	clientKeeper.AddRoute(solomachine.ModuleName, &smLightClientModule)
 
 	// register IBC modules
 	if err := app.RegisterModules(
-		ibc.NewAppModule(app.IBCKeeper),
+		// <exora>
+		// wasm
+		wasm.NewAppModule(app.appCodec, &app.WasmKeeper, app.StakingKeeper, app.AuthKeeper, app.BankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
+		// </exora>
+
+		// IBC modules
+		ibc.NewAppModule(&app.IBCKeeper),
 		ibctransfer.NewAppModule(app.TransferKeeper),
 		icamodule.NewAppModule(&app.ICAControllerKeeper, &app.ICAHostKeeper),
+
+		// IBC light clients
 		ibctm.NewAppModule(tmLightClientModule),
-		solomachine.NewAppModule(soloLightClientModule),
+		solomachine.NewAppModule(smLightClientModule),
 	); err != nil {
 		return err
 	}

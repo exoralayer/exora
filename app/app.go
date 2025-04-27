@@ -1,9 +1,7 @@
 package app
 
 import (
-	"fmt"
 	"io"
-	"path/filepath"
 
 	clienthelpers "cosmossdk.io/client/v2/helpers"
 	"cosmossdk.io/core/appmodule"
@@ -47,14 +45,8 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v10/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
-	"github.com/cosmos/cosmos-sdk/x/auth/ante"
-
-	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/spf13/cast"
 
 	// "github.com/exoralayer/exora/wasmbinding"
 
@@ -92,7 +84,7 @@ type App struct {
 	// the list of all modules is available in the app_config
 	AuthKeeper authkeeper.AccountKeeper
 	// BankKeeper            bankkeeper.Keeper
-	BankKeeper            *custombankkeeper.Keeper
+	BankKeeper            custombankkeeper.Keeper
 	StakingKeeper         *stakingkeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 	MintKeeper            mintkeeper.Keeper
@@ -106,14 +98,14 @@ type App struct {
 	ParamsKeeper          paramskeeper.Keeper
 
 	// ibc keepers
-	IBCKeeper           *ibckeeper.Keeper
+	IBCKeeper           ibckeeper.Keeper
 	ICAControllerKeeper icacontrollerkeeper.Keeper
 	ICAHostKeeper       icahostkeeper.Keeper
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	WasmKeeper wasmkeeper.Keeper
 
-	ContractTokenKeeper *contracttokenmodulekeeper.Keeper
+	ContractTokenKeeper contracttokenmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -205,67 +197,15 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
-	// <exora>
-	// Wasm
-	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
-	wasmDir := filepath.Join(homePath, "wasm")
-	nodeConfig, err := wasm.ReadNodeConfig(appOpts)
-	if err != nil {
-		panic(fmt.Sprintf("error while reading wasm config: %s", err))
-	}
-
-	// The last arguments can contain custom message handlers, and custom query handlers,
-	// if we want to allow any custom callbacks
-	app.WasmKeeper = wasmkeeper.NewKeeper(
-		app.appCodec,
-		runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
-		app.AuthKeeper,
-		app.BankKeeper,
-		app.StakingKeeper,
-		distrkeeper.NewQuerier(app.DistrKeeper),
-		app.IBCKeeper.ChannelKeeper,
-		app.IBCKeeper.ChannelKeeper,
-		app.TransferKeeper,
-		app.MsgServiceRouter(),
-		app.GRPCQueryRouter(),
-		wasmDir,
-		nodeConfig,
-		wasmtypes.VMConfig{},
-		wasmkeeper.BuiltInCapabilities(),
-		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
-		wasmOpts...,
-	)
-
-	anteHandler, err := NewAnteHandler(
-		HandlerOptions{
-			HandlerOptions: ante.HandlerOptions{
-				AccountKeeper:   app.AuthKeeper,
-				BankKeeper:      app.BankKeeper,
-				SignModeHandler: app.txConfig.SignModeHandler(),
-				FeegrantKeeper:  app.FeegrantKeeper,
-				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
-			},
-			IBCKeeper:             app.IBCKeeper,
-			NodeConfig:            &nodeConfig,
-			WasmKeeper:            &app.WasmKeeper,
-			TXCounterStoreService: runtime.NewKVStoreService(app.GetKey(wasmtypes.StoreKey)),
-			CircuitKeeper:         &app.CircuitBreakerKeeper,
-		},
-	)
-	if err != nil {
-		panic(fmt.Errorf("failed to create AnteHandler: %s", err))
-	}
-	app.SetAnteHandler(anteHandler)
-
-	if err := app.RegisterModules(
-		wasm.NewAppModule(app.appCodec, &app.WasmKeeper, app.StakingKeeper, app.AuthKeeper, app.BankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
+	// Register wasm's StoreKey
+	if err := app.RegisterStores(
+		storetypes.NewKVStoreKey(wasmtypes.StoreKey),
 	); err != nil {
 		panic(err)
 	}
-	// <exora />
 
-	// register legacy modules
-	if err := app.registerIBCModules(appOpts); err != nil {
+	// Register IBC modules manually
+	if err := app.registerIBCModules(appOpts, wasmOpts); err != nil {
 		panic(err)
 	}
 

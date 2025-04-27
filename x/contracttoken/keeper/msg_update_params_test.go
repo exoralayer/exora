@@ -16,9 +16,6 @@ func TestMsgUpdateParams(t *testing.T) {
 	params := types.DefaultParams()
 	require.NoError(t, f.keeper.Params.Set(f.ctx, params))
 
-	authorityStr, err := f.addressCodec.BytesToString(f.keeper.GetAuthority())
-	require.NoError(t, err)
-
 	// default params
 	testCases := []struct {
 		name      string
@@ -38,7 +35,7 @@ func TestMsgUpdateParams(t *testing.T) {
 		{
 			name: "send enabled param",
 			input: &types.MsgUpdateParams{
-				Authority: authorityStr,
+				Authority: f.keeper.GetAuthority(),
 				Params:    types.Params{},
 			},
 			expErr: false,
@@ -46,7 +43,7 @@ func TestMsgUpdateParams(t *testing.T) {
 		{
 			name: "all good",
 			input: &types.MsgUpdateParams{
-				Authority: authorityStr,
+				Authority: f.keeper.GetAuthority(),
 				Params:    params,
 			},
 			expErr: false,

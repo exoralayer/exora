@@ -9,7 +9,7 @@ import (
 )
 
 func (m msgServer) Mint(ctx context.Context, msg *types.MsgMint) (*types.MsgMintResponse, error) {
-	contractAddr, err := m.addressCodec.StringToBytes(msg.ContractAddress)
+	contractAddr, err := sdk.AccAddressFromBech32(msg.ContractAddress)
 	if err != nil {
 		return nil, errorsmod.Wrap(err, "invalid contract address")
 	}
@@ -22,7 +22,7 @@ func (m msgServer) Mint(ctx context.Context, msg *types.MsgMint) (*types.MsgMint
 
 	var recipient sdk.AccAddress
 	if msg.Recipient != "" {
-		recipient, err = m.addressCodec.StringToBytes(msg.Recipient)
+		recipient, err = sdk.AccAddressFromBech32(msg.Recipient)
 		if err != nil {
 			return nil, errorsmod.Wrap(err, "invalid recipient address")
 		}

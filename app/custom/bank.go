@@ -4,17 +4,15 @@ import (
 	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 )
 
 type CustomBankModule struct {
 	bank.AppModuleBasic
-	cdc codec.Codec
 }
 
-func (cm CustomBankModule) DefaultGenesis() json.RawMessage {
+func (cm CustomBankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	genesis := banktypes.DefaultGenesisState()
 
 	metadata := banktypes.Metadata{
@@ -38,5 +36,5 @@ func (cm CustomBankModule) DefaultGenesis() json.RawMessage {
 
 	genesis.DenomMetadata = append(genesis.DenomMetadata, metadata)
 
-	return cm.cdc.MustMarshalJSON(genesis)
+	return cdc.MustMarshalJSON(genesis)
 }
