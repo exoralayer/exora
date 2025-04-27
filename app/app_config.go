@@ -176,6 +176,7 @@ var (
 						upgradetypes.ModuleName,
 						circuittypes.ModuleName,
 						// ibc modules
+						paramstypes.ModuleName,
 						ibcexported.ModuleName,
 						ibctransfertypes.ModuleName,
 						icatypes.ModuleName,
