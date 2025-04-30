@@ -3,7 +3,6 @@ module github.com/exoralayer/exora
 go 1.23.6
 
 replace (
-	github.com/cosmos/admin-module/v2 => github.com/neutron-org/admin-module/v2 v2.0.2
 	// fix upstream GHSA-h395-qcrw-5vmq vulnerability.
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.1
 
